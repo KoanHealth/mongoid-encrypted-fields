@@ -1,5 +1,4 @@
-require "mongoid-encrypted-fields/version"
-require "mongoid-encrypted-fields/encrypted_string"
+require 'encrypted_strings'
 
-module Mongoid
-end
+require 'mongoid-encrypted-fields/version'
+require 'mongoid-encrypted-fields/encrypted_string'

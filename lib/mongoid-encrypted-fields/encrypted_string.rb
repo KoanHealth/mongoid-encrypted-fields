@@ -1,4 +1,3 @@
-require 'encrypted_strings'
 #
 # Used to store a (symmetrically) encrypted string in Mongo
 #
@@ -34,8 +33,16 @@ module Mongoid
 
       # Get the object as it was stored in the database, and instantiate this custom class from it.
       def demongoize(object)
-        return object unless valid_object?(object)
-        EncryptedString.new(object.decrypt(:symmetric))
+        case
+          when object.is_a?(EncryptedString)
+            object
+          when is_encrypted?(object)
+            EncryptedString.new(object.decrypt(:symmetric))
+          when invalid_object?(object)
+            object
+          else
+            EncryptedString.new(object)
+        end
       end
 
       # Takes any possible object and converts it to how it would be stored in the database.
@@ -43,10 +50,9 @@ module Mongoid
         case
           when object.is_a?(EncryptedString)
             object.mongoize
-          when is_encrypted?(object)
-            # It's already encrypted
-            object
           when invalid_object?(object)
+            object
+          when is_encrypted?(object)
             object
           else
             EncryptedString.new(object).mongoize
@@ -54,9 +60,7 @@ module Mongoid
       end
 
       # Converts the object that was supplied to a criteria and converts it into a database friendly form.
-      def evolve(object)
-        mongoize(object)
-      end
+      alias_method :evolve, :mongoize
 
       # Can this object be encrypted?  Nil and Empty Strings cannot be encrypted and write to the database "as is"
       def valid_object?(object)
@@ -68,7 +72,7 @@ module Mongoid
       end
 
       def is_encrypted?(object)
-        object.respond_to?(:encrypted?) && object.encrypted?
+        object.try(:encrypted?)
       end
 
     end

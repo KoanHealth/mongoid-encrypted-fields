@@ -1,10 +1,12 @@
 require 'rubygems'
 require 'bundler/setup'
 require 'mongoid'
+require 'encrypted_strings'
 require 'rspec'
 
-Dir["#{File.dirname(__FILE__)}/../../lib/mongoid-encrypted-fields/*.rb"].each {|f| require f}
-Dir["#{File.dirname(__FILE__)}/support/*.rb"].each {|f| require f}
+require 'mongoid-encrypted-fields'
+
+Dir["#{File.dirname(__FILE__)}/support/**/*.rb"].each {|f| require f}
 
 RSpec.configure do |config|
   config.treat_symbols_as_metadata_keys_with_true_values = true
