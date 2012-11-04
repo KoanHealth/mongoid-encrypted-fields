@@ -1,9 +1,5 @@
 require "mongoid-encrypted-fields/version"
+require "mongoid-encrypted-fields/encrypted_string"
 
 module Mongoid
-  module Encrypted
-    module Fields
-      # Your code goes here...
-    end
-  end
 end
