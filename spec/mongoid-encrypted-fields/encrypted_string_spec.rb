@@ -67,7 +67,7 @@ module Mongoid
 
     end
 
-    describe "evolve (should match mongoize)" do
+    describe "evolve" do
 
       it "encrypted string should return encrypted" do
         EncryptedString.evolve(EncryptedString.new(raw)).should eq(raw_encrypted)
@@ -78,7 +78,7 @@ module Mongoid
       end
 
       it "nil should return nil" do
-        EncryptedString.evolve(nil).should be_nil
+        EncryptedString.evolve(nil).should eq(nil)
       end
 
       it "empty string should return empty string" do

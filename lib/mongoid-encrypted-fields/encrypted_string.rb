@@ -11,7 +11,7 @@
 # Get returns the unencrypted string
 # puts p.social_security_number -> '123456789'
 #
-# Use the encrypted property to see the encrypted value (depends on password)
+# Use the encrypted property to see the encrypted value
 # puts p.social_security_number.encrypted -> '....'
 #
 module Mongoid
@@ -36,12 +36,10 @@ module Mongoid
         case
           when object.is_a?(EncryptedString)
             object
-          when is_encrypted?(object)
-            EncryptedString.new(object.decrypt(:symmetric))
           when invalid_object?(object)
             object
           else
-            EncryptedString.new(object)
+            EncryptedString.new(object.decrypt(:symmetric))
         end
       end
 
