@@ -17,12 +17,13 @@ Queries encrypt data before searching the database, so equality matches work aut
 
 ## Usage
 * Configure encrypted_strings setting the cipher and password:
-    ```EncryptedStrings::SymmetricCipher.default_algorithm = 'aes-256-cbc'
+    ```Ruby
+    EncryptedStrings::SymmetricCipher.default_algorithm = 'aes-256-cbc'
     EncryptedStrings::SymmetricCipher.default_password = ENV['MY_PASSWORD'] # please don't hard code this
     ```
 * Use encrypted types for fields in your models:
-
-    ```class Person
+    ```Ruby
+    class Person
         include Mongoid::Document
 
         field :name, type: String
@@ -30,13 +31,18 @@ Queries encrypt data before searching the database, so equality matches work aut
     end
     ```
 * The field getter returns the unencrypted value:
-    ```person = Person.new(ssn: '123456789')
+    ```Ruby
+    person = Person.new(ssn: '123456789')
     person.ssn # => '123456789'
     ```
 * The encrypted value is accessible with the "encrypted" attribute
-    ```person.ssn.encrypted # => <encrypted string>```
+    ```Ruby
+    person.ssn.encrypted # => <encrypted string>
+    ```
 * Finding a model by an encrypted field works automatically (equality only):
-    ```Person.where(ssn: '123456789').count()```
+    ```Ruby
+    Person.where(ssn: '123456789').count() # ssn is encrypted before querying the database
+    ```
 
 ## Known Limitations
 * Only supports symmetric encryption
