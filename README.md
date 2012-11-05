@@ -19,7 +19,8 @@ Queries encrypt data before searching the database, so equality matches work aut
 * Configure encrypted_strings setting the cipher and password:
     ```Ruby
     EncryptedStrings::SymmetricCipher.default_algorithm = 'aes-256-cbc'
-    EncryptedStrings::SymmetricCipher.default_password = ENV['MY_PASSWORD'] # please don't hard code this
+
+    EncryptedStrings::SymmetricCipher.default_password = ENV['MY_PASSWORD'] # find a secure way to get your password
     ```
 * Use encrypted types for fields in your models:
     ```Ruby
