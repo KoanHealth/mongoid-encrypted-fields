@@ -1,7 +1,7 @@
 mongoid-encrypted-fields
 ========================
 
-A library for storing encrypted data in Mongo using Mongoid.  We looked at a view alternatives, but wanted something that stored the values securely, yet remained unobtrusive to our code.
+A library for storing encrypted data in Mongo using Mongoid.  We looked at a few alternatives, but wanted something that stored the values securely and unobtrusively.
 
 Mongoid 3 supports [custom types](http://mongoid.org/en/mongoid/docs/documents.html) that need to only provide a simple interface - allowing us to extend core Ruby types to secure any type while providing a clean interface for developers.
 
