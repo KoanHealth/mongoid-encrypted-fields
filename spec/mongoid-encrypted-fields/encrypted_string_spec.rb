@@ -9,18 +9,18 @@ module Mongoid
     end
 
     let(:raw) { "abc123" }
-    let(:raw_encrypted) { "abc123".encrypt(:symmetric) }
+    let(:encrypted) { "abc123".encrypt(:symmetric) }
 
     it "returns the same string" do
       EncryptedString.new(raw).should eq(raw)
     end
 
     it "should encrypt the string" do
-      EncryptedString.new(raw).encrypted.should eq(raw_encrypted)
+      EncryptedString.new(raw).encrypted.should eq(encrypted)
     end
 
     it "nil should fail" do
-      ->{ EncryptedString.new(nil) }.should raise_error()
+      -> { EncryptedString.new(nil) }.should raise_error()
     end
 
     describe "demongoize" do
@@ -34,11 +34,11 @@ module Mongoid
       end
 
       it "encrypted string should return instance of EncryptedString" do
-        EncryptedString.demongoize(raw_encrypted).is_a?(EncryptedString).should be_true
+        EncryptedString.demongoize(encrypted).is_a?(EncryptedString).should be_true
       end
 
       it "encrypted string should return unencrypted string" do
-        EncryptedString.demongoize(raw_encrypted).should eq(raw)
+        EncryptedString.demongoize(encrypted).should eq(raw)
       end
 
     end
@@ -46,11 +46,11 @@ module Mongoid
     describe "mongoize" do
 
       it "encrypted string should return encrypted" do
-        EncryptedString.mongoize(EncryptedString.new(raw)).should eq(raw_encrypted)
+        EncryptedString.mongoize(EncryptedString.new(raw)).should eq(encrypted)
       end
 
       it "encrypted string should return itself" do
-        EncryptedString.mongoize(raw_encrypted).should be(raw_encrypted)
+        EncryptedString.mongoize(encrypted).should be(encrypted)
       end
 
       it "nil should return nil" do
@@ -62,31 +62,7 @@ module Mongoid
       end
 
       it "non empty string should return encrypted" do
-        EncryptedString.mongoize(raw).should eq(raw_encrypted)
-      end
-
-    end
-
-    describe "evolve" do
-
-      it "encrypted string should return encrypted" do
-        EncryptedString.evolve(EncryptedString.new(raw)).should eq(raw_encrypted)
-      end
-
-      it "encrypted string should return itself" do
-        EncryptedString.evolve(raw_encrypted).should be(raw_encrypted)
-      end
-
-      it "nil should return nil" do
-        EncryptedString.evolve(nil).should eq(nil)
-      end
-
-      it "empty string should return empty string" do
-        EncryptedString.evolve('').should eq('')
-      end
-
-      it "non empty string should return encrypted" do
-        EncryptedString.evolve(raw).should eq(raw_encrypted)
+        EncryptedString.mongoize(raw).should eq(encrypted)
       end
 
     end

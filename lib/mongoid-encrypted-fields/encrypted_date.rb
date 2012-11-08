@@ -1,24 +1,28 @@
 #
-# Used to store a (symmetrically) encrypted string in Mongo
+# Used to store a (symmetrically) encrypted date in Mongo
 #
 # Usage:
-# field :social_security_number, type: Mongoid::EncryptedString
+# field :birth_date, type: Mongoid::EncryptedDate
 #
-# Set with an unencrypted string
+# Set with an unencrypted date
 # p = Person.new()
-# p.social_security_number = '123456789'
+# p.birth_date = Date.new(2000, 1, 1)
 #
-# Get returns the unencrypted string
-# puts p.social_security_number -> '123456789'
+# Get returns the unencrypted date
+# puts p.birth_date -> 'Jan 1, 2000'
 #
 # Use the encrypted property to see the encrypted value
-# puts p.social_security_number.encrypted -> '....'
+# puts p.birth_date.encrypted -> '....'
 #
 module Mongoid
-  class EncryptedString < String
+  class EncryptedDate < Date
     include EncryptedField
 
     class << self
+
+      def from_date(date)
+        EncryptedDate.new(date.year, date.month, date.day)
+      end
 
       # Get the object as it was stored in the database, and instantiate this custom class from it.
       def demongoize(object)
@@ -26,19 +30,19 @@ module Mongoid
           when object.is_a?(EncryptedDate) || object.blank?
             object
           else
-            EncryptedString.new(object.decrypt(:symmetric))
+            EncryptedDate.from_date(object.decrypt(:symmetric).to_date)
         end
       end
 
       # Takes any possible object and converts it to how it would be stored in the database.
       def mongoize(object)
         case
-          when object.is_a?(EncryptedString)
+          when object.is_a?(EncryptedDate)
             object.mongoize
-          when is_encrypted?(object) || (object.to_s.empty?)
+          when is_encrypted?(object)
             object
           else
-            EncryptedString.new(object).mongoize unless object.blank?
+            EncryptedDate.from_date(object.to_date).mongoize unless object.blank?
         end
       end
 

@@ -9,14 +9,24 @@ describe 'Single model' do
 
   let (:ssn) { '123456789' }
   let (:ssn_encrypted) { '123456789'.encrypt(:symmetric) }
-  let (:person) { Person.new(name: 'John Doe', ssn: '123456789') }
+  let (:birth_date) { 20.years.ago.to_date }
+  let (:birth_date_encrypted) { 20.years.ago.to_date.to_s.encrypt(:symmetric) }
+  let (:person) { Person.new(name: 'John Doe', ssn: '123456789', birth_date: 20.years.ago.to_date) }
 
-  it "model stores encrypted value" do
+  it "model stores encrypted ssn" do
     person.attributes['ssn'].should eq(ssn_encrypted)
   end
 
-  it "encrypted field getter returns raw value" do
+  it "model stores encrypted birth_date" do
+    person.attributes['birth_date'].should eq(birth_date_encrypted)
+  end
+
+  it "ssn getter returns raw value" do
     person.ssn.should eq(ssn)
+  end
+
+  it "birth_date getter returns raw value" do
+    person.birth_date.should eq(birth_date)
   end
 
   describe "after save" do
@@ -27,12 +37,20 @@ describe 'Single model' do
       @persisted = Person.find(person.id)
     end
 
-    it "encrypted field is persisted" do
+    it "encrypted ssn is persisted" do
       @persisted.attributes['ssn'].should eq(ssn_encrypted)
     end
 
-    it "encrypted field getter returns raw value" do
+    it "encrypted birth_date is persisted" do
+      @persisted.attributes['birth_date'].should eq(birth_date_encrypted)
+    end
+
+    it "encrypted ssn getter returns raw value" do
       @persisted.ssn.should eq(ssn)
+    end
+
+    it "encrypted birth_date getter returns raw value" do
+      @persisted.birth_date.should eq(birth_date)
     end
 
   end
@@ -44,8 +62,12 @@ describe 'Single model' do
       person.save!
     end
 
-    it "matches equality" do
+    it "ssn matches equality" do
       Person.where(ssn: ssn).count.should eq(1)
+    end
+
+    it "birth date matches equality" do
+      Person.where(birth_date: birth_date).count.should eq(1)
     end
 
   end
