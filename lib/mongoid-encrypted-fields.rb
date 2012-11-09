@@ -1,6 +1,10 @@
 require 'encrypted_strings'
 
 require 'mongoid-encrypted-fields/version'
-require 'mongoid-encrypted-fields/encrypted_field'
-require 'mongoid-encrypted-fields/encrypted_string'
-require 'mongoid-encrypted-fields/encrypted_date'
+require 'mongoid-encrypted-fields/ciphers/cipher'
+require 'mongoid-encrypted-fields/ciphers/asymmetric_cipher'
+require 'mongoid-encrypted-fields/ciphers/symmetric_cipher'
+require 'mongoid-encrypted-fields/encrypted/config'
+require 'mongoid-encrypted-fields/encrypted/field'
+require 'mongoid-encrypted-fields/encrypted/string'
+require 'mongoid-encrypted-fields/encrypted/date'
