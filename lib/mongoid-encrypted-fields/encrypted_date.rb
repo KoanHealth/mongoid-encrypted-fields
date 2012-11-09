@@ -21,7 +21,7 @@ module Mongoid
     class << self
 
       def from_date(date)
-        EncryptedDate.new(date.year, date.month, date.day)
+        EncryptedDate.parse(date.to_s)
       end
 
       # Get the object as it was stored in the database, and instantiate this custom class from it.

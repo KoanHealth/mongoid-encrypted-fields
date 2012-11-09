@@ -23,6 +23,15 @@ module Mongoid
       -> { EncryptedString.new(nil) }.should raise_error()
     end
 
+    it "modified string automatically encrypts after change" do
+      str = "this is a test"
+      es = EncryptedString.new(str)
+      es.encrypted.should eq(str.encrypt(:symmetric))
+
+      es.chop!
+      es.encrypted.should eq(str.chop.encrypt(:symmetric))
+    end
+
     describe "demongoize" do
 
       it "nil should return nil" do

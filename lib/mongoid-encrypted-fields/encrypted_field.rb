@@ -3,7 +3,12 @@ module Mongoid
     extend ActiveSupport::Concern
 
     def encrypted
-      @encrypted ||= self.to_s.encrypt(:symmetric)
+      if (self.try(:frozen?))
+        @encrypted ||= self.to_s.encrypt(:symmetric)
+      else
+        # We are mutable - need to encrypt whenever asked
+        self.to_s.encrypt(:symmetric)
+      end
     end
 
     # Converts an object of this instance into a database friendly value.
