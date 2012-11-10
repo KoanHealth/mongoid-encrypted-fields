@@ -4,7 +4,17 @@ require 'mongoid-encrypted-fields/version'
 require 'mongoid-encrypted-fields/ciphers/cipher'
 require 'mongoid-encrypted-fields/ciphers/asymmetric_cipher'
 require 'mongoid-encrypted-fields/ciphers/symmetric_cipher'
-require 'mongoid-encrypted-fields/encrypted/config'
-require 'mongoid-encrypted-fields/encrypted/field'
-require 'mongoid-encrypted-fields/encrypted/string'
-require 'mongoid-encrypted-fields/encrypted/date'
+require 'mongoid-encrypted-fields/fields/encrypted_field'
+require 'mongoid-encrypted-fields/fields/encrypted_string'
+require 'mongoid-encrypted-fields/fields/encrypted_date'
+
+module Mongoid
+  module EncryptedFields
+
+    class << self
+      # Set cipher used for all field encryption/decryption
+      attr_accessor :cipher
+    end
+
+  end
+end

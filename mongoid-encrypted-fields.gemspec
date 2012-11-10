@@ -5,9 +5,9 @@ require 'mongoid-encrypted-fields/version'
 
 Gem::Specification.new do |gem|
   gem.name          = "mongoid-encrypted-fields"
-  gem.version       = Mongoid::Encrypted::Fields::VERSION
-  gem.authors       = ["Jerry Clinesmith"]
-  gem.email         = ["jerry.clinesmith@koanhealth.com"]
+  gem.version       = Mongoid::EncryptedFields::VERSION
+  gem.authors       = ["Koan Health"]
+  gem.email         = ["development@koanhealth.com"]
   gem.description   = "A library for storing encrypted data in Mongo"
   gem.summary       = "Custom types for storing encrypted data"
   gem.homepage      = "https://github.com/KoanHealth/mongoid-encrypted-fields"
