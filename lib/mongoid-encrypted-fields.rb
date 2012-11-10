@@ -1,6 +1,7 @@
 require 'encrypted_strings'
 
 require 'mongoid-encrypted-fields/version'
+require 'mongoid-encrypted-fields/logging'
 require 'mongoid-encrypted-fields/ciphers/cipher'
 require 'mongoid-encrypted-fields/ciphers/asymmetric_cipher'
 require 'mongoid-encrypted-fields/ciphers/symmetric_cipher'

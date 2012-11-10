@@ -26,7 +26,7 @@ module Mongoid
 
       # Get the object as it was stored in the database, and instantiate this custom class from it.
       def demongoize(object)
-        p "demongoize: #{object.inspect}"
+        EncryptedFields.logger.debug "#{name}##{__method__.to_s}: #{object.inspect}"
         case
           when object.is_a?(Mongoid::EncryptedDate) || object.blank?
             object
@@ -38,7 +38,7 @@ module Mongoid
 
       # Takes any possible object and converts it to how it would be stored in the database.
       def mongoize(object)
-        p "mongoize: #{object.inspect}"
+        EncryptedFields.logger.debug "#{name}##{__method__.to_s}: #{object.inspect}"
         case
           when object.is_a?(Mongoid::EncryptedDate)
             object.mongoize
