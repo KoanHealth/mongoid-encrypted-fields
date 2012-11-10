@@ -15,17 +15,17 @@
 # puts p.birth_date.encrypted -> '....'
 #
 module Mongoid
-  class EncryptedDate < ::Date
+  class EncryptedDateTime < ::DateTime
     include Mongoid::EncryptedField
 
     class << self
 
-      def from_date(date)
-        parse(date.to_s)
+      def from_datetime(d)
+        parse(d.to_s)
       end
 
       def convert(object)
-        from_date(object.to_datetime)
+        from_datetime(object.to_datetime)
       end
 
     end

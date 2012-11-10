@@ -1,26 +1,26 @@
 require 'spec_helper'
 
 module Mongoid
-  describe EncryptedDate do
+  describe EncryptedDateTime do
 
     before(:all) do
       Mongoid::EncryptedFields.cipher = Mongoid::Ciphers::SymmetricCipher.new(algorithm: 'aes-256-cbc', password: 'my test password')
     end
 
-    subject { Mongoid::EncryptedDate }
-    let(:raw) { Date.today }
-    let(:encrypted) { Mongoid::EncryptedDate.mongoize(Date.today) }
+    subject { Mongoid::EncryptedDateTime }
+    let(:raw) { DateTime.new(2010, 6, 15, 1, 2, 3) }
+    let(:encrypted) { Mongoid::EncryptedDateTime.mongoize(DateTime.new(2010, 6, 15, 1, 2, 3)) }
 
-    it "returns the same date" do
-      subject.from_date(raw).should eq(raw)
+    it "returns the same datetime" do
+      subject.from_datetime(raw).should eq(raw)
     end
 
-    it "should encrypt the date" do
-      subject.from_date(raw).encrypted.should eq(encrypted)
+    it "should encrypt the datetime" do
+      subject.from_datetime(raw).encrypted.should eq(encrypted)
     end
 
     it "nil should fail" do
-      -> { subject.from_date(nil) }.should raise_error()
+      -> { subject.from_datetime(nil) }.should raise_error()
     end
 
     describe "demongoize" do
@@ -29,15 +29,15 @@ module Mongoid
         subject.demongoize(nil).should be_nil
       end
 
-      it "blank should return itself" do
+      it "blank string should return blank string" do
         subject.demongoize('').should eq('')
       end
 
-      it "invalid date should fail" do
+      it "invalid datetime should fail" do
         -> { subject.demongoize('not a date') }.should raise_error
       end
 
-      it "encrypted date should return unencrypted date" do
+      it "encrypted datetime should return unencrypted datetime" do
         decrypted = subject.demongoize(encrypted)
         decrypted.is_a?(subject).should be_true
         decrypted.should eq(raw)
@@ -47,11 +47,11 @@ module Mongoid
 
     describe "mongoize" do
 
-      it "encrypted date should return encrypted" do
-        subject.mongoize(subject.from_date(raw)).should eq(encrypted)
+      it "encrypted datetime should return encrypted" do
+        subject.mongoize(subject.from_datetime(raw)).should eq(encrypted)
       end
 
-      it "encrypted date should return itself" do
+      it "encrypted datetime should return itself" do
         subject.mongoize(encrypted).should eq(encrypted)
       end
 
@@ -59,7 +59,7 @@ module Mongoid
         subject.mongoize(nil).should eq(nil)
       end
 
-      it "non empty date should return encrypted" do
+      it "valid datetime should return encrypted" do
         subject.mongoize(raw).should eq(encrypted)
       end
 

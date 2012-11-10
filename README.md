@@ -46,8 +46,5 @@ Queries encrypt data before searching the database, so equality matches work aut
 ## Known Limitations
 * Single cipher for all encrypted fields
 
-## Future Enhancements
-* Implement encryption for other types: numerics, dates, etc...
-
 ## Copyright
 (c) 2012 Koan Health. See LICENSE.txt for further details.

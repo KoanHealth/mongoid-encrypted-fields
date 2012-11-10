@@ -20,12 +20,44 @@ module Mongoid
 
     module ClassMethods
 
+      # Get the object as it was stored in the database, and instantiate this custom class from it.
+      def demongoize(object)
+        EncryptedFields.logger.debug "#{name}##{__method__.to_s}: #{object.inspect}"
+        case
+          when object.is_a?(self.class) || object.blank?
+            object
+          else
+            decrypted = is_encrypted?(object) ? decrypt(object) : object
+            convert(decrypted)
+        end
+      end
+
+      # Takes any possible object and converts it to how it would be stored in the database.
+      def mongoize(object)
+        EncryptedFields.logger.debug "#{name}##{__method__.to_s}: #{object.inspect}"
+        case
+          when object.is_a?(self.class)
+            object.mongoize
+          when object.blank? || is_encrypted?(object)
+            object
+          else
+            convert(object).mongoize
+        end
+      end
+
+      # Converts the object that was supplied to a criteria and converts it into a database friendly form.
+      alias_method :evolve, :mongoize
+
+      def convert(object)
+        raise NotImplementedError.new("convert must be implemented")
+      end
+
       # Used to identify encrypted strings
       MARKER = Base64.encode64('\x02`{~MeF~}`\x03')
 
       def encrypt(plaintext)
-        unmarked = EncryptedFields.cipher.encrypt(plaintext)
-        MARKER + unmarked
+        encrypted = EncryptedFields.cipher.encrypt(plaintext)
+        MARKER + encrypted
       end
 
       def decrypt(encrypted)

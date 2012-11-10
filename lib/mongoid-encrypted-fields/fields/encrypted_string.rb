@@ -21,32 +21,9 @@ module Mongoid
 
     class << self
 
-      # Get the object as it was stored in the database, and instantiate this custom class from it.
-      def demongoize(object)
-        EncryptedFields.logger.debug "#{name}##{__method__.to_s}: #{object.inspect}"
-        case
-          when object.is_a?(Mongoid::EncryptedString) || object.blank? || !is_encrypted?(object)
-            object
-          else
-            new(decrypt(object))
-        end
+      def convert(object)
+        new(object)
       end
-
-      # Takes any possible object and converts it to how it would be stored in the database.
-      def mongoize(object)
-        EncryptedFields.logger.debug "#{name}##{__method__.to_s}: #{object.inspect}"
-        case
-          when object.is_a?(Mongoid::EncryptedString)
-            object.mongoize
-          when is_encrypted?(object) || (object.to_s.empty?)
-            object
-          else
-            new(object).mongoize unless object.blank?
-        end
-      end
-
-      # Converts the object that was supplied to a criteria and converts it into a database friendly form.
-      alias_method :evolve, :mongoize
 
     end
   end
