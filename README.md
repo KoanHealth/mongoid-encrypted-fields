@@ -16,11 +16,9 @@ Queries encrypt data before searching the database, so equality matches work aut
     gem 'mongoid-encrypted-fields'
 
 ## Usage
-* Configure encrypted_strings setting the cipher and password:
+* Configure the cipher to be used for encrypting field values:
     ```Ruby
-    EncryptedStrings::SymmetricCipher.default_algorithm = 'aes-256-cbc'
-
-    EncryptedStrings::SymmetricCipher.default_password = ENV['MY_PASSWORD'] # find a secure way to get your password
+    Mongoid::EncryptedFields.cipher = Mongoid::Ciphers::SymmetricCipher.new(algorithm: 'aes-256-cbc', password: ENV['MY_PASSWORD']) # find a secure way to get your password
     ```
 * Use encrypted types for fields in your models:
     ```Ruby
@@ -46,8 +44,7 @@ Queries encrypt data before searching the database, so equality matches work aut
     ```
 
 ## Known Limitations
-* Only supports symmetric encryption
-* Single password for all encrypted fields
+* Single cipher for all encrypted fields
 
 ## Future Enhancements
 * Implement encryption for other types: numerics, dates, etc...
