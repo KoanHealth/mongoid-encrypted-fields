@@ -53,10 +53,10 @@ module Mongoid
       end
 
       # Used to identify encrypted strings
-      MARKER = Base64.encode64('\x02`{~MeF~}`\x03')
+      MARKER = Base64.encode64('\x02`{~MeF~}`\x03').chomp
 
       def encrypt(plaintext)
-        encrypted = EncryptedFields.cipher.encrypt(plaintext)
+        encrypted = EncryptedFields.cipher.encrypt(plaintext).chomp
         MARKER + encrypted
       end
 
