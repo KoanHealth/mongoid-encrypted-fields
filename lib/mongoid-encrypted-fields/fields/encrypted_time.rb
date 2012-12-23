@@ -1,5 +1,5 @@
 #
-# Used to store a (symmetrically) encrypted date in Mongo
+# Used to store an encrypted time in Mongo
 #
 # Usage:
 # field :birth_date, type: Mongoid::EncryptedDate

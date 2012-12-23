@@ -1,6 +1,6 @@
 # encoding: utf-8
 #
-# Used to store a (symmetrically) encrypted string in Mongo
+# Used to store an encrypted string in Mongo
 #
 # Usage:
 # field :social_security_number, type: Mongoid::EncryptedString
