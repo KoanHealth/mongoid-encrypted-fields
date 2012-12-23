@@ -19,7 +19,7 @@ Gem::Specification.new do |gem|
 
   gem.add_dependency "rake"
   gem.add_dependency "mongoid", "~> 3"
-  gem.add_dependency "encrypted_strings"
+  gem.add_dependency "encrypted_strings", "~> 0.3"
 
   gem.add_development_dependency "rspec"
 end
