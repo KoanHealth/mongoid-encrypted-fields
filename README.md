@@ -40,6 +40,9 @@ Queries encrypt data before searching the database, so equality matches work aut
 * The encrypted value is accessible with the "encrypted" attribute
     ```Ruby
     person.ssn.encrypted # => <encrypted string>
+
+    # It can also be accessed using the hash syntax supported by Mongoid
+    person[:ssn] # => <encrypted string>
     ```
 * Finding a model by an encrypted field works automatically (equality only):
     ```Ruby
