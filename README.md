@@ -10,16 +10,19 @@ Queries encrypt data before searching the database, so equality matches work aut
 ## Prerequisites
 * Ruby 1.9.3
 * [Mongoid](http://mongoid.org) 3.0
-* [Encrypted-Strings](https://github.com/pluginaweek/encrypted_strings)
+* "Bring your own" encryption, see below
 
 ## Install
     gem 'mongoid-encrypted-fields'
 
 ## Usage
 * Configure the cipher to be used for encrypting field values:
-    ```Ruby
-    Mongoid::EncryptedFields.cipher = Mongoid::Ciphers::SymmetricCipher.new(algorithm: 'aes-256-cbc', password: ENV['MY_PASSWORD']) # find a secure way to get your password
-    ```
+
+    GibberishCipher can be found in examples - uses the [Gibberish](https://github.com/mdp/gibberish) gem:
+```Ruby
+    Mongoid::EncryptedFields.cipher = GibberishCipher.new(ENV['MY_PASSWORD']) 
+```
+
 * Use encrypted types for fields in your models:
     ```Ruby
     class Person
