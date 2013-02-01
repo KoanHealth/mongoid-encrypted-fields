@@ -1,11 +1,11 @@
 require 'rubygems'
 require 'bundler/setup'
 require 'mongoid'
-require 'encrypted_strings'
 require 'rspec'
 
 require 'mongoid-encrypted-fields'
 
+Dir["#{File.dirname(__FILE__)}/../examples/**/*.rb"].each {|f| require f}
 Dir["#{File.dirname(__FILE__)}/support/**/*.rb"].each {|f| require f}
 
 ENV['MONGOID_ENV'] ||= 'test'

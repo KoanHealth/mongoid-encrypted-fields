@@ -3,14 +3,14 @@ require 'spec_helper'
 describe 'Single model' do
 
   before(:all) do
-    Mongoid::EncryptedFields.cipher = Mongoid::Ciphers::SymmetricCipher.new(algorithm: 'aes-256-cbc', password: 'my test password')
+    Mongoid::EncryptedFields.cipher = GibberishCipher.new('my test password')
   end
 
   let (:ssn) { '123456789' }
-  let (:ssn_encrypted) { Mongoid::EncryptedString.mongoize('123456789') }
+  let (:ssn_encrypted) { Mongoid::EncryptedString.mongoize(ssn) }
   let (:birth_date) { 20.years.ago.to_date }
-  let (:birth_date_encrypted) { Mongoid::EncryptedDate.mongoize(20.years.ago.to_date) }
-  let (:person) { Person.new(name: 'John Doe', ssn: '123456789', birth_date: 20.years.ago.to_date) }
+  let (:birth_date_encrypted) { Mongoid::EncryptedDate.mongoize(birth_date) }
+  let (:person) { Person.new(name: 'John Doe', ssn: ssn, birth_date: birth_date) }
 
   it "model stores encrypted ssn" do
     person.attributes['ssn'].should eq(ssn_encrypted)

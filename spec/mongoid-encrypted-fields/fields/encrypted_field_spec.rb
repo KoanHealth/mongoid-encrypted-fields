@@ -4,7 +4,7 @@ module Mongoid
   describe EncryptedField do
 
     before(:all) do
-      Mongoid::EncryptedFields.cipher = Mongoid::Ciphers::SymmetricCipher.new(algorithm: 'aes-256-cbc', password: 'my test password')
+      Mongoid::EncryptedFields.cipher = GibberishCipher.new('my test password')
     end
 
     it "should encrypt and decrypt a string" do
