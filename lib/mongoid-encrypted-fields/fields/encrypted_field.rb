@@ -40,6 +40,8 @@ module Mongoid
             object.mongoize
           when object.blank? || is_encrypted?(object)
             object
+          when object.is_a?(Regexp)
+            raise NotImplementedError.new("Searching is only possible when using equality")            
           else
             convert(object).mongoize
         end
