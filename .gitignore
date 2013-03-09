@@ -2,6 +2,7 @@
 *.rbc
 .bundle
 .config
+.sw?
 .yardoc
 .*.sw?
 Gemfile.lock
