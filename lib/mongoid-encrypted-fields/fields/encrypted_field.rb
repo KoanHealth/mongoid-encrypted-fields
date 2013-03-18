@@ -1,3 +1,4 @@
+require "active_support"
 require "base64"
 
 module Mongoid

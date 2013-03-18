@@ -23,6 +23,7 @@ Gem::Specification.new do |gem|
 
   gem.add_development_dependency "encrypted_strings", "~> 0.3"
   gem.add_development_dependency "gibberish", "~> 1.2"
+  gem.add_development_dependency "pry"
   gem.add_development_dependency "rake"
   gem.add_development_dependency "rspec"
 end
