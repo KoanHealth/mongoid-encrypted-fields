@@ -51,6 +51,12 @@ Queries encrypt data before searching the database, so equality matches work aut
 
 ## Known Limitations
 * Single cipher for all encrypted fields
+* Currently can encrypt these [Mongoid types](http://mongoid.org/en/mongoid/docs/documents.html#fields)
+  * Date
+  * DateTime
+  * Hash
+  * String
+  * Time
 
 ## Copyright
 (c) 2012 Koan Health. See LICENSE.txt for further details.
