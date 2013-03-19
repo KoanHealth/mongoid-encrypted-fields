@@ -18,7 +18,6 @@ Gem::Specification.new do |gem|
   gem.require_paths = ["lib"]
 
   gem.add_dependency "mongoid", "~> 3"
-  gem.add_dependency "time"
 
   gem.add_development_dependency "encrypted_strings", "~> 0.3"
   gem.add_development_dependency "gibberish", "~> 1.2"
