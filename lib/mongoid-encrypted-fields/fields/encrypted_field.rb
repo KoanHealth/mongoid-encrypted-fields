@@ -1,4 +1,5 @@
-require "base64"
+require 'active_support/concern'
+require 'base64'
 
 module Mongoid
   module EncryptedField
