@@ -1,3 +1,5 @@
+require 'logger'
+
 module Mongoid
   module EncryptedFields
     # Contains behavior for logging.
