@@ -1,11 +1,9 @@
-# require "active_support"
+require "active_support"
 require "base64"
 
 module Mongoid
   module EncryptedField
-    #extend ActiveSupport::Concern
-    def self.included(base)
-      base.class_eval do
+    extend ActiveSupport::Concern
 
     def encrypted
       if frozen?
@@ -21,8 +19,7 @@ module Mongoid
       encrypted
     end
 
-    # module ClassMethods
-    class << self
+    module ClassMethods
 
       # Get the object as it was stored in the database, and instantiate this custom class from it.
       def demongoize(object)
@@ -73,9 +70,6 @@ module Mongoid
         object.is_a?(::String) && object.start_with?(MARKER)
       end
 
-    end
-
-      end
     end
 
   end
