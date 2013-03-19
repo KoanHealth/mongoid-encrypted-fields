@@ -1,6 +1,7 @@
 require 'mongoid-encrypted-fields/version'
 require 'mongoid-encrypted-fields/logging'
 require 'mongoid-encrypted-fields/fields/encrypted_field'
+require 'mongoid-encrypted-fields/fields/encrypted_hash'
 require 'mongoid-encrypted-fields/fields/encrypted_string'
 require 'mongoid-encrypted-fields/fields/encrypted_date'
 require 'mongoid-encrypted-fields/fields/encrypted_date_time'
