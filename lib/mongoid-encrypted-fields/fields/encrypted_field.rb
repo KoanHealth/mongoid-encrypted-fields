@@ -2,74 +2,79 @@ require "base64"
 
 module Mongoid
   module EncryptedField
-    extend ActiveSupport::Concern
 
-    def encrypted
-      if frozen?
-        @encrypted ||= self.class.encrypt(to_s)
-      else
-        # We are mutable - need to encrypt whenever asked
-        self.class.encrypt(to_s)
-      end
-    end
+    def self.included(base)
+      base.class_eval do
 
-    # Converts an object of this instance into a database friendly value.
-    def mongoize
-      encrypted
-    end
-
-    module ClassMethods
-
-      # Get the object as it was stored in the database, and instantiate this custom class from it.
-      def demongoize(object)
-        #EncryptedFields.logger.debug "#{name}##{__method__.to_s}: #{object.inspect}"
-        case
-          when object.is_a?(self.class) || object.blank?
-            object
+        def encrypted
+          if frozen?
+            @encrypted ||= self.class.encrypt(to_s)
           else
-            decrypted = is_encrypted?(object) ? decrypt(object) : object
-            convert(decrypted)
+            # We are mutable - need to encrypt whenever asked
+            self.class.encrypt(to_s)
+          end
         end
-      end
 
-      # Takes any possible object and converts it to how it would be stored in the database.
-      def mongoize(object)
-        #EncryptedFields.logger.debug "#{name}##{__method__.to_s}: #{object.inspect}"
-        case
-          when object.is_a?(self.class)
-            object.mongoize
-          when object.blank? || is_encrypted?(object)
-            object
-          else
-            convert(object).mongoize
+        # Converts an object of this instance into a database friendly value.
+        def mongoize
+          encrypted
         end
-      end
 
-      # Converts the object that was supplied to a criteria and converts it into a database friendly form.
-      alias_method :evolve, :mongoize
+        class << self
 
-      def convert(object)
-        raise NotImplementedError.new("convert must be implemented")
-      end
+          # Get the object as it was stored in the database, and instantiate this custom class from it.
+          def demongoize(object)
+            #EncryptedFields.logger.debug "#{name}##{__method__.to_s}: #{object.inspect}"
+            case
+              when object.is_a?(self.class) || object.blank?
+                object
+              else
+                decrypted = is_encrypted?(object) ? decrypt(object) : object
+                convert(decrypted)
+            end
+          end
 
-      # Used to identify encrypted strings
-      MARKER = Base64.encode64('\x02`{~MeF~}`\x03').chomp
+          # Takes any possible object and converts it to how it would be stored in the database.
+          def mongoize(object)
+            #EncryptedFields.logger.debug "#{name}##{__method__.to_s}: #{object.inspect}"
+            case
+              when object.is_a?(self.class)
+                object.mongoize
+              when object.blank? || is_encrypted?(object)
+                object
+              else
+                convert(object).mongoize
+            end
+          end
 
-      def encrypt(plaintext)
-        encrypted = EncryptedFields.cipher.encrypt(plaintext).chomp
-        MARKER + encrypted
-      end
+          # Converts the object that was supplied to a criteria and converts it into a database friendly form.
+          alias_method :evolve, :mongoize
 
-      def decrypt(encrypted)
-        unmarked = encrypted.slice(MARKER.size..-1)
-        EncryptedFields.cipher.decrypt(unmarked)
-      end
+          def convert(object)
+            raise NotImplementedError.new("convert must be implemented")
+          end
 
-      def is_encrypted?(object)
-        object.is_a?(::String) && object.start_with?(MARKER)
-      end
+          # Used to identify encrypted strings
+          MARKER = Base64.encode64('\x02`{~MeF~}`\x03').chomp
 
-    end
+          def encrypt(plaintext)
+            encrypted = EncryptedFields.cipher.encrypt(plaintext).chomp
+            MARKER + encrypted
+          end
 
-  end
-end
+          def decrypt(encrypted)
+            unmarked = encrypted.slice(MARKER.size..-1)
+            EncryptedFields.cipher.decrypt(unmarked)
+          end
+
+          def is_encrypted?(object)
+            object.is_a?(::String) && object.start_with?(MARKER)
+          end
+
+        end # class << self
+
+      end # base.class_eval do
+    end # def self.included(base)
+
+  end # module EncryptedField
+end # module Mongoid
