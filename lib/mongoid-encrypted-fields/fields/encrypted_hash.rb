@@ -14,10 +14,16 @@
 #
 # Use the encrypted property to see the encrypted value
 # puts p.address.encrypted -> '....'
+require 'yaml'
 
 module Mongoid
   class EncryptedHash < ::Hash
     include Mongoid::EncryptedField
+
+    # Return value to be encrypted
+    def raw_value
+      to_yaml
+    end
 
     class << self
 
@@ -29,7 +35,12 @@ module Mongoid
       # Takes an object representation (Hash or string) and converts it to an
       # EncryptedHash.
       def convert(object)
-        from_hash(eval object.to_s)
+        case object
+          when Hash
+            from_hash(object)
+          else
+            from_hash(::YAML.load(object))
+        end
       end
 
     end
