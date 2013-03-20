@@ -7,16 +7,21 @@ module Mongoid
 
     def encrypted
       if frozen?
-        @encrypted ||= self.class.encrypt(to_s)
+        @encrypted ||= self.class.encrypt(raw_value)
       else
         # We are mutable - need to encrypt whenever asked
-        self.class.encrypt(to_s)
+        self.class.encrypt(raw_value)
       end
     end
 
     # Converts an object of this instance into a database friendly value.
     def mongoize
       encrypted
+    end
+
+    # Provide string to be encrypted and stored in Mongo DB
+    def raw_value
+      to_s
     end
 
     module ClassMethods
