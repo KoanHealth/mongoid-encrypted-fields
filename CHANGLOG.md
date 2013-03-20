@@ -1,5 +1,9 @@
 # Revision history
 
+## 1.2 - Add EncryptedHash
+
+* Accepted [pull request](https://github.com/KoanHealth/mongoid-encrypted-fields/pull/4) from ashirazi to add support for encrypted hashes
+
 ## 1.1 - Breaking changes - PLEASE READ
 
 ### encrypted-strings gem
