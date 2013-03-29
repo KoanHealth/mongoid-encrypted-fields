@@ -4,7 +4,7 @@ module Mongoid
   describe EncryptedTime do
 
     before(:all) do
-      Mongoid::EncryptedFields.cipher = GibberishCipher.new('my test password')
+      Mongoid::EncryptedFields.cipher = GibberishCipher.new('my test password', 'weaksalt')
     end
 
     subject { Mongoid::EncryptedTime }

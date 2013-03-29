@@ -3,7 +3,7 @@ require 'spec_helper'
 describe 'Single model' do
 
   before(:all) do
-    Mongoid::EncryptedFields.cipher = GibberishCipher.new('my test password')
+    Mongoid::EncryptedFields.cipher = GibberishCipher.new('my test password', 'weaksalt')
   end
 
   let (:ssn) { '123456789' }

@@ -20,7 +20,7 @@ Queries encrypt data before searching the database, so equality matches work aut
 
     GibberishCipher can be found in examples - uses the [Gibberish](https://github.com/mdp/gibberish) gem:
 ```Ruby
-    Mongoid::EncryptedFields.cipher = GibberishCipher.new(ENV['MY_PASSWORD']) 
+    Mongoid::EncryptedFields.cipher = GibberishCipher.new(ENV['MY_PASSWORD'], ENV['MY_SALT'])
 ```
 
 * Use encrypted types for fields in your models:

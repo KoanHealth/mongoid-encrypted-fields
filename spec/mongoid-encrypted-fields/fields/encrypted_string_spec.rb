@@ -4,7 +4,7 @@ module Mongoid
   describe EncryptedString do
 
     before(:all) do
-      Mongoid::EncryptedFields.cipher = GibberishCipher.new('my test password')
+      Mongoid::EncryptedFields.cipher = GibberishCipher.new('my test password', 'weaksalt')
     end
 
     let(:raw) { "abc123" }
