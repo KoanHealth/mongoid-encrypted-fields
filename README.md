@@ -18,9 +18,9 @@ Queries encrypt data before searching the database, so equality matches work aut
 ## Usage
 * Configure the cipher to be used for encrypting field values:
 
-    GibberishCipher can be found in examples - uses the [Gibberish](https://github.com/mdp/gibberish) gem:
+    Gibberish::AES can be found in examples - uses the [Gibberish](https://github.com/mdp/gibberish) gem:
 ```Ruby
-    Mongoid::EncryptedFields.cipher = GibberishCipher.new(ENV['MY_PASSWORD'], ENV['MY_SALT'])
+    Mongoid::EncryptedFields.cipher = Gibberish::AES.new(ENV['MY_PASSWORD'], ENV['MY_SALT'])
 ```
 
 * Use encrypted types for fields in your models:
