@@ -14,7 +14,7 @@ describe Mongoid::Validations::UniquenessValidator do
   describe "#valid?" do
 
     let(:person) do
-      Person.new(name: "bill", ssn: "123456789")
+      Person.new(name: "bill", ssn: "abc456789")
     end
 
     after do
@@ -23,34 +23,64 @@ describe Mongoid::Validations::UniquenessValidator do
 
     context "when the value is in conflict" do
 
-      context "when the field is encrypted" do
+      context "when the field is not encrypted" do
 
-        before do
-          Person.validates_uniqueness_of :name
-          Person.create!(name: "bill")
+        context "when the validation is case-sensitive" do
+
+          before do
+            Person.validates_uniqueness_of :name, case_sensitive: true
+            Person.create!(name: "bill")
+          end
+
+          it "correctly detects a uniqueness conflict" do
+            expect(person).to_not be_valid
+          end
         end
 
-        it "correctly detects a uniqueness conflict" do
-          expect(person).to_not be_valid
+        context "when the validation is case-insensitive" do
+
+          before do
+            Person.validates_uniqueness_of :name, case_sensitive: false
+            Person.create!(name: "BiLl")
+          end
+
+          it "behaves as case-insensitive" do
+            expect(person).to_not be_valid
+          end
         end
       end
 
-      context "when the field is not encrypted" do
+      context "when the field is encrypted" do
 
-        before do
-          Person.validates_uniqueness_of :ssn
-          Person.create!(ssn: "123456789")
+        context "when the validation is case-sensitive" do
+
+          before do
+            Person.validates_uniqueness_of :ssn, case_sensitive: true
+            Person.create!(ssn: "abc456789")
+          end
+
+          it "correctly detects a uniqueness conflict" do
+            expect(person).to_not be_valid
+          end
         end
 
-        it "correctly detects a uniqueness conflict" do
-          expect(person).to_not be_valid
+        context "when the validation is case-insensitive" do
+
+          before do
+            Person.validates_uniqueness_of :ssn, case_sensitive: false
+            Person.create!(ssn: "ABc456789")
+          end
+
+          it "behaves as case-sensitive" do
+            expect(person).to be_valid
+          end
         end
       end
     end
 
     context "when the value is not conflict" do
 
-      context "when the field is encrypted" do
+      context "when the field is not encrypted" do
 
         before do
           Person.validates_uniqueness_of :name
@@ -62,7 +92,7 @@ describe Mongoid::Validations::UniquenessValidator do
         end
       end
 
-      context "when the field is not encrypted" do
+      context "when the field is encrypted" do
 
         before do
           Person.validates_uniqueness_of :ssn

@@ -10,27 +10,38 @@ module Mongoid
     # Should work in Mongoid >= 4.0.0 by renaming module Validations to Validatable
     #
     # A known limitation is that the :case_sensitive option does not work
-    # for encrypted fields; they are always case-sensitive. To achieve
+    # for encrypted fields; they will always be case-sensitive. To achieve
     # case-insensitivity it is recommended to downcase or upcase the field
     # value in the before_validation callback.
     class UniquenessValidator
       private
 
-      def to_validate(document, attribute, value)
-        metadata = document.relations[attribute.to_s]
-        if metadata && metadata.stores_foreign_key?
-          [ metadata.foreign_key, value.id ]
+      # document, attribute are added to filter method interface
+      def criterion(document, attribute, value)
+        attribute = document.class.aliased_fields[attribute.to_s] || attribute
+
+        if localized?(document, attribute)
+          conditions = value.inject([]) { |acc, (k,v)| acc << { "#{attribute}.#{k}" => filter(v, document, attribute) } }
+          selector = { "$or" => conditions }
         else
-          # begin new behavior
-          aliased_attr = document.class.aliased_fields[attribute.to_s] || attribute.to_s
-          klass = document.class.fields[aliased_attr].options[:type]
-          if klass <= Mongoid::EncryptedField
-            [ attribute, klass.convert(value).encrypted ]
-          # end new behavior
-          else
-            [ attribute, value ]
-          end
+          selector = { attribute => filter(value, document, attribute) }
         end
+
+        if document.persisted? && !document.embedded?
+          selector.merge!(_id: { "$ne" => document.id })
+        end
+        selector
+      end
+
+      # document, attribute are added to filter method interface
+      def filter(value, document=nil, attribute=nil)
+        # begin new behavior
+        if document && attribute
+          field_type = document.class.fields[attribute.to_s].options[:type]
+          return field_type.convert(value).encrypted if field_type <= Mongoid::EncryptedField
+        end
+        # end new behavior
+        !case_sensitive? && value ? /\A#{Regexp.escape(value.to_s)}$/i : value
       end
     end
   end
