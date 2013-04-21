@@ -6,6 +6,7 @@ require 'mongoid-encrypted-fields/fields/encrypted_string'
 require 'mongoid-encrypted-fields/fields/encrypted_date'
 require 'mongoid-encrypted-fields/fields/encrypted_date_time'
 require 'mongoid-encrypted-fields/fields/encrypted_time'
+require 'mongoid-encrypted-fields/validations/uniqueness'
 
 module Mongoid
   module EncryptedFields
