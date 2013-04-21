@@ -48,6 +48,17 @@ Queries encrypt data before searching the database, so equality matches work aut
     ```Ruby
     Person.where(ssn: '123456789').count() # ssn is encrypted before querying the database
     ```
+* The Mongoid uniqueness validator is patched to detect of encrypted fields:
+    ```Ruby
+    class Person
+        ...
+        field :ssn, type: Mongoid::EncryptedString
+        validates_uniqueness_of :ssn
+    end
+
+    Person.create!(name: 'Bill', ssn: '123456789')
+    Person.create!(name: 'Ted', ssn: '123456789') #=> fails with uniqueness error
+    ```
 
 ## Known Limitations
 * Single cipher for all encrypted fields
@@ -57,6 +68,7 @@ Queries encrypt data before searching the database, so equality matches work aut
   * Hash
   * String
   * Time
+* The uniqueness validator for encrypted fields is always case-sensitive. It is recommended to remove case for unique encrypted fields by calling `.downcase` in the `before_validation` callback.
 
 ## Copyright
 (c) 2012 Koan Health. See LICENSE.txt for further details.
