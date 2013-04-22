@@ -54,26 +54,17 @@ describe Mongoid::Validations::UniquenessValidator do
 
         context "when the validation is case-sensitive" do
 
-          before do
-            Person.validates_uniqueness_of :ssn, case_sensitive: true
-            Person.create!(ssn: "abc456789")
-          end
-
-          it "correctly detects a uniqueness conflict" do
-            expect(person).to_not be_valid
+          it "behaves as case-sensitive" do
+            expect(person).to be_valid
           end
         end
 
         context "when the validation is case-insensitive" do
 
-          before do
-            Person.validates_uniqueness_of :ssn, case_sensitive: false
-            Person.create!(ssn: "ABc456789")
+          it "throws an exception" do
+            expect { Person.validates_uniqueness_of :ssn, case_sensitive: false }.to raise_error 'Encrypted field :ssn cannot support case insensitive uniqueness'
           end
 
-          it "behaves as case-sensitive" do
-            expect(person).to be_valid
-          end
         end
       end
     end

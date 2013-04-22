@@ -53,7 +53,8 @@ Queries encrypt data before searching the database, so equality matches work aut
     class Person
         ...
         field :ssn, type: Mongoid::EncryptedString
-        validates_uniqueness_of :ssn
+        validates_uniqueness_of :ssn, case_sensitive: true # Works as expected
+        validates_uniqueness_of :ssn, case_sensitive: false # Raises exception - encrypted field cannot support a case insensitive match
     end
 
     Person.create!(name: 'Bill', ssn: '123456789')
@@ -68,7 +69,7 @@ Queries encrypt data before searching the database, so equality matches work aut
   * Hash
   * String
   * Time
-* The uniqueness validator for encrypted fields is always case-sensitive. It is recommended to remove case for unique encrypted fields by calling `.downcase` in the `before_validation` callback.
+* The uniqueness validator for encrypted fields is always case-sensitive.  Using it with case-sensitive false raises an exception.
 
 ## Copyright
 (c) 2012 Koan Health. See LICENSE.txt for further details.

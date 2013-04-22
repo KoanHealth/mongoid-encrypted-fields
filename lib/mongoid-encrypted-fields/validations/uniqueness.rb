@@ -10,39 +10,21 @@ module Mongoid
     # Should work in Mongoid >= 4.0.0 by renaming module Validations to Validatable
     #
     # A known limitation is that the :case_sensitive option does not work
-    # for encrypted fields; they will always be case-sensitive. To achieve
-    # case-insensitivity it is recommended to downcase or upcase the field
-    # value in the before_validation callback.
+    # for encrypted fields; they must always be case-sensitive.
     class UniquenessValidator
-      private
 
-      # document, attribute are added to filter method interface
-      def criterion(document, attribute, value)
-        attribute = document.class.aliased_fields[attribute.to_s] || attribute
-
-        if localized?(document, attribute)
-          conditions = value.inject([]) { |acc, (k,v)| acc << { "#{attribute}.#{k}" => filter(v, document, attribute) } }
-          selector = { "$or" => conditions }
-        else
-          selector = { attribute => filter(value, document, attribute) }
+      def setup_with_validation(klass)
+        setup_without_validation(klass)
+        return if case_sensitive?
+        attributes.each do |attribute|
+          field_type = @klass.fields[attribute.to_s].options[:type]
+          raise ArgumentError, "Encrypted field :#{attribute} cannot support case insensitive uniqueness" if field_type.method_defined?(:encrypted)
         end
-
-        if document.persisted? && !document.embedded?
-          selector.merge!(_id: { "$ne" => document.id })
-        end
-        selector
       end
 
-      # document, attribute are added to filter method interface
-      def filter(value, document=nil, attribute=nil)
-        # begin new behavior
-        if document && attribute
-          field_type = document.class.fields[attribute.to_s].options[:type]
-          return field_type.convert(value).encrypted if field_type <= Mongoid::EncryptedField
-        end
-        # end new behavior
-        !case_sensitive? && value ? /\A#{Regexp.escape(value.to_s)}$/i : value
-      end
+      alias_method :setup_without_validation, :setup
+      alias_method :setup, :setup_with_validation
+
     end
   end
 end
