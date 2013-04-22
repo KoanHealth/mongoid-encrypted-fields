@@ -1,5 +1,7 @@
 # Revision history
 
+## 1.2.1 - Uniqueness validator fails if developer attempts to use case-insensitive option for an encrypted field
+
 ## 1.2 - Add EncryptedHash
 
 * Accepted [pull request](https://github.com/KoanHealth/mongoid-encrypted-fields/pull/4) from ashirazi to add support for encrypted hashes
