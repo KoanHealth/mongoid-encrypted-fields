@@ -54,8 +54,13 @@ describe Mongoid::Validations::UniquenessValidator do
 
         context "when the validation is case-sensitive" do
 
+          before do
+            Person.validates_uniqueness_of :ssn
+            Person.create!(ssn: "abc456789")
+          end
+
           it "behaves as case-sensitive" do
-            expect(person).to be_valid
+            expect(person).not_to be_valid
           end
         end
 
