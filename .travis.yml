@@ -1,0 +1,9 @@
+language: ruby
+bundler_args: --without development
+rvm:
+  - 1.9.3
+notifications:
+  recipients:
+    - jerry.clinesmith@koanhealth.com
+services:
+  - mongodb
