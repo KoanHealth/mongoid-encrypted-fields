@@ -11,7 +11,7 @@ Dir["#{File.dirname(__FILE__)}/support/**/*.rb"].each {|f| require f}
 ENV['MONGOID_ENV'] ||= 'test'
 Mongoid.load!("#{File.dirname(__FILE__)}/config/mongoid.yml")
 
-Mongoid::EncryptedFields.logger.level = Logger::DEBUG
+Mongoid::EncryptedFields.logger.level = Logger::FATAL
 
 RSpec.configure do |config|
   Mongoid.logger = Mongoid::EncryptedFields.logger
