@@ -3,6 +3,9 @@ require 'bundler/setup'
 require 'mongoid'
 require 'rspec'
 
+require 'coveralls'
+Coveralls.wear!
+
 require 'mongoid-encrypted-fields'
 
 Dir["#{File.dirname(__FILE__)}/../examples/**/*.rb"].each {|f| require f}
