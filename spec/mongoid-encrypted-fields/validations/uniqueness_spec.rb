@@ -14,7 +14,7 @@ describe Mongoid::Validations::UniquenessValidator do
   describe "#valid?" do
 
     let(:person) do
-      Person.new(name: "bill", ssn: "abc456789")
+      Person.new(name: "bill", ssn: "abc456789", credit_card: "12345678", phone_number: "12345678")
     end
 
     after do
@@ -98,6 +98,53 @@ describe Mongoid::Validations::UniquenessValidator do
 
         it "correctly detects a uniqueness conflict" do
           expect(person).to be_valid
+        end
+      end
+    end
+
+    context "when the field name is aliased" do
+
+      context "when the aliased name is used" do
+
+        context "when the field is encrypted" do
+
+          it "throws an exception" do
+            expect { Person.validates_uniqueness_of :credit_card, case_sensitive: false }.to raise_error 'Encrypted field :credit_card cannot support case insensitive uniqueness'
+          end
+        end
+
+        context "when the field is not encrypted" do
+
+          before do
+            Person.validates_uniqueness_of :phone_number, case_sensitive: false
+            Person.create!(phone_number: "12345678")
+          end
+
+          it "correctly detects a uniqueness conflict" do
+            expect(person).to_not be_valid
+          end
+        end
+      end
+
+      context "when the underlying name is used" do
+
+        context "when the field is encrypted" do
+
+          it "throws an exception" do
+            expect { Person.validates_uniqueness_of :cc, case_sensitive: false }.to raise_error 'Encrypted field :cc cannot support case insensitive uniqueness'
+          end
+        end
+
+        context "when the field is not encrypted" do
+
+          before do
+            Person.validates :ph, uniqueness: { case_sensitive: false }
+            Person.create!(phone_number: "12345678")
+          end
+
+          it "correctly detects a uniqueness conflict" do
+            expect(person).to_not be_valid
+          end
         end
       end
     end
