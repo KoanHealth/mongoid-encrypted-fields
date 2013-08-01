@@ -20,3 +20,4 @@ tmp
 
 #Ignore IDEA directory
 /.idea
+.tags*
