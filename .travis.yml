@@ -3,6 +3,8 @@ bundler_args: --without development
 rvm:
   - 2.0.0
   - 1.9.3
+gemfile:
+  - gemfiles/Gemfile.mongoid3
 notifications:
   recipients:
     - jerry.clinesmith@koanhealth.com
