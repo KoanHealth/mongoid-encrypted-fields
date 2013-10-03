@@ -11,11 +11,14 @@ Gem::Specification.new do |gem|
   gem.description   = 'A library for storing encrypted data in Mongo'
   gem.summary       = 'Custom types for storing encrypted data'
   gem.homepage      = 'https://github.com/KoanHealth/mongoid-encrypted-fields'
+  gem.license       = "MIT"
 
-  gem.files         = `git ls-files`.split($/)
-  gem.executables   = gem.files.grep(%r{^bin/}).map{ |f| File.basename(f) }
-  gem.test_files    = gem.files.grep(%r{^(test|spec|features)/})
-  gem.require_paths = ['lib']
+  gem.required_ruby_version     = ">= 1.9"
+  gem.required_rubygems_version = ">= 1.3.6"
+
+  gem.files         = Dir.glob("lib/**/*") + %w(CHANGELOG.md LICENSE.txt README.md Rakefile)
+  gem.test_files    = Dir.glob("spec/**/*")
+  gem.require_path  = 'lib'
 
   gem.add_dependency 'mongoid', '~> 3'
 
