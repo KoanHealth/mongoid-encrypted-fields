@@ -1,10 +1,18 @@
-require 'rubygems'
 require 'bundler/setup'
+require 'simplecov'
+
+if ENV['TRAVIS']
+  require 'coveralls'
+  SimpleCov.formatter = Coveralls::SimpleCov::Formatter
+end
+
+SimpleCov.start do
+  add_filter '/spec/'
+  add_filter '/examples/'
+end
+
 require 'mongoid'
 require 'rspec'
-
-require 'coveralls'
-Coveralls.wear!
 
 require 'mongoid-encrypted-fields'
 
