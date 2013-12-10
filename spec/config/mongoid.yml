@@ -4,6 +4,3 @@ test:
       database: mongoid_encrypted_fields_test
       hosts:
         - localhost:27017
-      options:
-        safe: true
-        consistency: :strong
