@@ -1,7 +1,8 @@
 # Revision history
 
-## 1.3.0 - Breaking changes - PLEASE READ
-* Addressed [issue][https://github.com/KoanHealth/mongoid-encrypted-fields/issues/12] to make encrypted hash walk like a regular hash.  This means that hash keys will be converted to strings before being saved (@AnalogJ).
+## 1.3.0 - Breaking change - PLEASE READ
+* \#11 Support for Mongoid 4
+* \#12 EncryptedHash will now stringify the keys before storing to be consistent with Mongoid's behavior
 
 ## 1.2.2
 * Accepted [pull request](https://github.com/KoanHealth/mongoid-encrypted-fields/pull/10) to support aliased fields with the uniqueness validator (@johnnyshields)

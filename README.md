@@ -12,8 +12,8 @@ Mongoid 3 supports [custom types](http://mongoid.org/en/mongoid/docs/documents.h
 Queries encrypt data before searching the database, so equality matches work automatically.
 
 ## Prerequisites
-* Ruby 1.9.3
-* [Mongoid](http://mongoid.org) 3.0
+* >= Ruby 1.9.3
+* >= [Mongoid](http://mongoid.org) 3.0
 * "Bring your own" encryption, see below
 
 ## Install
@@ -74,6 +74,10 @@ Queries encrypt data before searching the database, so equality matches work aut
   * String
   * Time
 * The uniqueness validator for encrypted fields is always case-sensitive.  Using it with case-sensitive false raises an exception.
+
+## Related Articles
+* [Storing Encrypted Data in MongoDB](http://jerryclinesmith.me/blog/2013/03/29/storing-encrypted-data-in-mongodb/)
+* [Transparently Adding Encrypted Fields to a Rails App using Mongoid](http://blog.thesparktree.com/post/69538763994/transparently-adding-encrypted-fields-to-a-rails-app)
 
 ## Copyright
 (c) 2012 Koan Health. See LICENSE.txt for further details.
