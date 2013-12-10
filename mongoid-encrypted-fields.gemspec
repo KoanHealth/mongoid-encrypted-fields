@@ -20,7 +20,7 @@ Gem::Specification.new do |gem|
   gem.test_files    = Dir.glob("spec/**/*")
   gem.require_path  = 'lib'
 
-  gem.add_dependency 'mongoid', '~> 3'
+  gem.add_dependency 'mongoid', '>= 3'
 
   gem.add_development_dependency 'rake'
   gem.add_development_dependency 'rspec'
