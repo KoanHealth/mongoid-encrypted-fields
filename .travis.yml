@@ -5,6 +5,7 @@ rvm:
   - 1.9.3
 gemfile:
   - .gemfiles/Gemfile.mongoid3
+  - .gemfiles/Gemfile.mongoid4
 notifications:
   recipients:
     - jerry.clinesmith@koanhealth.com
