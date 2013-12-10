@@ -12,7 +12,7 @@ describe 'Single model' do
   let (:birth_date_encrypted) { Mongoid::EncryptedDate.mongoize(birth_date) }
   let (:address) { {street: '123 Main St', city: 'Anytown', state: 'TX' } }
   let (:address_encrypted) { Mongoid::EncryptedHash.mongoize(address) }
-  let (:person) { Person.new(name: 'John Doe', ssn: ssn, birth_date: birth_date, address: address) }
+  let (:person) { Person.new(name: 'John Doe', ssn: ssn, birth_date: birth_date, address: address, duck_address: address) }
 
   it "model stores encrypted ssn" do
     person.attributes['ssn'].should eq(ssn_encrypted)
@@ -35,7 +35,7 @@ describe 'Single model' do
   end
 
   it "address getter returns raw value" do
-    person.address.should eq(address)
+    person.address.should eq(address.stringify_keys)
   end
 
   describe "after save" do
@@ -67,9 +67,12 @@ describe 'Single model' do
     end
 
     it "encrypted address getter returns raw value" do
-      @persisted.address.should eq(address)
+      @persisted.address.should eq(address.stringify_keys)
     end
 
+    it "encrypted address getter is equivalent to non-encrypted address getter" do
+      @persisted.address.should eq(@persisted.duck_address)
+    end
   end
 
   describe "find model by encrypted field" do

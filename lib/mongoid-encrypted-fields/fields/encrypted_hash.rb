@@ -10,7 +10,9 @@
 # p.address = {street: "123 Main St", city: "Springdale", state: "MD"}
 #
 # Get returns the unencrypted hash
-# puts p.address -> {:street=>"123 Main St", :city=>"Springdale", :state=>"MD"}
+# puts p.address -> {'street'=>"123 Main St", 'city'=>"Springdale", 'state'=>"MD"}
+#
+# Note that symbols used as keys are converted to strings (just like using a Hash with Mongo)
 #
 # Use the encrypted property to see the encrypted value
 # puts p.address.encrypted -> '....'
@@ -22,7 +24,7 @@ module Mongoid
 
     # Return value to be encrypted
     def raw_value
-      to_yaml
+      stringify_keys.to_yaml
     end
 
     class << self

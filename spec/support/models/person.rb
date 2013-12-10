@@ -5,6 +5,7 @@ class Person
   field :ssn, type: Mongoid::EncryptedString
   field :birth_date, type: Mongoid::EncryptedDate
   field :address, type: Mongoid::EncryptedHash
+  field :duck_address, type: Hash
   field :ph, as: :phone_number, type: String
   field :cc, as: :credit_card, type: Mongoid::EncryptedString
 

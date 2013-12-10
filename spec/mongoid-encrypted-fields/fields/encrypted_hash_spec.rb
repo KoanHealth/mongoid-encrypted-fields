@@ -40,7 +40,7 @@ module Mongoid
       it "encrypted hash should return unencrypted hash" do
         decrypted = subject.demongoize(encrypted)
         decrypted.is_a?(subject).should be_true
-        decrypted.should eq(raw)
+        decrypted.should eq(raw.stringify_keys)
       end
 
     end
