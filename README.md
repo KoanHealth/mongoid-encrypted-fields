@@ -52,7 +52,7 @@ Queries encrypt data before searching the database, so equality matches work aut
     ```Ruby
     Person.where(ssn: '123456789').count() # ssn is encrypted before querying the database
     ```
-* The Mongoid uniqueness validator is patched to detect of encrypted fields:
+* The Mongoid uniqueness validator is patched to detect encrypted fields:
     ```Ruby
     class Person
         ...
