@@ -3,7 +3,7 @@ gemspec path: '..'
 
 gem 'rake'
 gem 'mongoid', github: 'mongoid/mongoid'
-git 'git@github.com:rails/rails.git', branch: 'master' do
+github 'rails/rails', branch: 'master' do
   gem 'activemodel'
 end
 
