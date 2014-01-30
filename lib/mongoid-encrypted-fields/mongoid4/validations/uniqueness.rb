@@ -28,8 +28,11 @@ module Mongoid
         # ActiveModel 4.1+ adds options[:class] to reference the document that included this validation
         def check_validity!
           return if case_sensitive?
+          valid_document = options[:class]
+          # If we're on a version of ActiveModel that doesn't have setup or pass options[:class], we have no reference to the document
+          return unless valid_document
           attributes.each do |attribute|
-            field_type = options[:class].fields[options[:class].database_field_name(attribute)].options[:type]
+            field_type = valid_document.fields[valid_document.database_field_name(attribute)].options[:type]
             raise ArgumentError, "Encrypted field :#{attribute} cannot support case insensitive uniqueness" if field_type.method_defined?(:encrypted)
           end
         end
