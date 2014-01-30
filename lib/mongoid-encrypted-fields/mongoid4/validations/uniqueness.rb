@@ -20,7 +20,7 @@ module Mongoid
       # Older versions of Mongoid's UniquenessValidator have a klass variable to reference the validating document
       # This was later replaced in ActiveModel with options[:class]
       def owner_document
-        return klass if instance_methods(false).include?(:klass)
+        return klass if respond_to?(:klass)
         options[:class]
       end
 
