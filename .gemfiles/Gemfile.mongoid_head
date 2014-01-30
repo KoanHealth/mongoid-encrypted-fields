@@ -2,7 +2,7 @@ source 'https://rubygems.org'
 gemspec path: '..'
 
 gem 'rake'
-gem 'mongoid', '4.0.0.alpha2'
+gem 'mongoid', github: 'mongoid/mongoid'
 
 group :test do
   gem 'coveralls', require: false
