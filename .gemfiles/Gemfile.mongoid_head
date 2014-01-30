@@ -3,7 +3,9 @@ gemspec path: '..'
 
 gem 'rake'
 gem 'mongoid', github: 'mongoid/mongoid'
-gem 'activemodel', git: 'https://github.com/rails/rails/tree/master/activemodel'
+git 'git@github.com:rails/rails.git', branch: 'master' do
+  gem 'activemodel'
+end
 
 group :test do
   gem 'coveralls', require: false
