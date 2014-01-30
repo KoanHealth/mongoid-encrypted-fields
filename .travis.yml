@@ -4,6 +4,9 @@ rvm:
   - 1.9.3
   - 2.0.0
   - 2.1.0
+matrix:
+  allow_failures:
+    - gemfile: .gemfiles/Gemfile.mongoid_head
 gemfile:
   - .gemfiles/Gemfile.mongoid3
   - .gemfiles/Gemfile.mongoid4
