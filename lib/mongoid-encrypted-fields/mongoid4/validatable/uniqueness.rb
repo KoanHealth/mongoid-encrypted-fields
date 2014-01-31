@@ -18,6 +18,7 @@ module Mongoid
 
       def setup(klass)
         @klass = klass
+        check_validity!
       end
 
       def check_validity!
