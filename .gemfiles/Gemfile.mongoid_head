@@ -3,8 +3,8 @@ gemspec path: '..'
 
 gem 'rake'
 gem 'mongoid', github: 'mongoid/mongoid'
-github 'rails/rails', branch: 'master' do
-  gem 'activemodel'
+git 'https://github.com/rails/rails.git' do
+   gem 'activemodel'
 end
 
 group :test do
