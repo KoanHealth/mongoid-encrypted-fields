@@ -7,21 +7,26 @@ module Mongoid
     # for encrypted fields; they must always be case-sensitive.
     # Patch is confirmed to work on Mongoid >= 4.0.0
     class UniquenessValidator
-
-      def check_validity!
-        return if case_sensitive?
-        return unless (doc = owner_document)
-        attributes.each do |attribute|
-          field_type = doc.fields[doc.database_field_name(attribute)].options[:type]
-          raise ArgumentError, "Encrypted field :#{attribute} cannot support case insensitive uniqueness" if field_type.method_defined?(:encrypted)
-        end
-      end
+      attr_reader :klass
 
       # Older versions of Mongoid's UniquenessValidator have a klass variable to reference the validating document
       # This was later replaced in ActiveModel with options[:class]
-      def owner_document
-        return klass if respond_to?(:klass)
-        options[:class]
+      def initialize(options={})
+        super
+        @klass = options[:class]
+      end
+
+      def setup(klass)
+        @klass = klass
+      end
+
+      def check_validity!
+        return if case_sensitive?
+        return unless klass
+        attributes.each do |attribute|
+          field_type = klass.fields[klass.database_field_name(attribute)].options[:type]
+          raise ArgumentError, "Encrypted field :#{attribute} cannot support case insensitive uniqueness" if field_type.method_defined?(:encrypted)
+        end
       end
 
     end
