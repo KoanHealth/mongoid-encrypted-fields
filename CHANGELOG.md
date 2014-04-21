@@ -1,5 +1,8 @@
 # Revision history
 
+## 1.3.1
+* \#14 Updates due to changes in Mongoid 4 and ActiveModel 4
+
 ## 1.3.0 - Breaking change - PLEASE READ
 * \#11 Support for Mongoid 4
 * \#12 EncryptedHash will now stringify the keys before storing to be consistent with Mongoid's behavior
