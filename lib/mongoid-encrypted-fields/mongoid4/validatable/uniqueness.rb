@@ -13,12 +13,11 @@ module Mongoid
       # This was later replaced in ActiveModel with options[:class]
       def initialize(options={})
         super
-        @klass = options[:class]
+        @klass = options[:class] if options.key?(:class)
       end
 
       def setup(klass)
         @klass = klass
-        check_validity!
       end
 
       def check_validity!
