@@ -39,7 +39,7 @@ module Mongoid
 
       it "encrypted datetime should return unencrypted datetime" do
         decrypted = subject.demongoize(encrypted)
-        decrypted.is_a?(subject).should be_true
+        decrypted.is_a?(subject).should be true
         decrypted.should eq(raw)
       end
 

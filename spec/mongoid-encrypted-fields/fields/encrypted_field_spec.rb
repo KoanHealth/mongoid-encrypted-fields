@@ -17,13 +17,13 @@ module Mongoid
 
     it "should be able to identify an encrypted string" do
       plaintext = "this is a test!"
-      Mongoid::EncryptedString.is_encrypted?(plaintext).should be_false
+      Mongoid::EncryptedString.is_encrypted?(plaintext).should be false
 
       encrypted = Mongoid::EncryptedString.encrypt(plaintext)
-      Mongoid::EncryptedString.is_encrypted?(encrypted).should be_true
+      Mongoid::EncryptedString.is_encrypted?(encrypted).should be true
 
       unencrypted = Mongoid::EncryptedString.decrypt(encrypted)
-      Mongoid::EncryptedString.is_encrypted?(unencrypted).should be_false
+      Mongoid::EncryptedString.is_encrypted?(unencrypted).should be false
     end
 
   end

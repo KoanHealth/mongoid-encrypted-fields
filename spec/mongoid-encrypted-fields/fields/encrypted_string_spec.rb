@@ -42,7 +42,7 @@ module Mongoid
       end
 
       it "encrypted string should return instance of Mongoid::EncryptedString" do
-        Mongoid::EncryptedString.demongoize(encrypted).is_a?(Mongoid::EncryptedString).should be_true
+        Mongoid::EncryptedString.demongoize(encrypted).is_a?(Mongoid::EncryptedString).should be true
       end
 
       it "encrypted string should return unencrypted string" do
