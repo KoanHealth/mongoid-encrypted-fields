@@ -16,10 +16,6 @@ module Mongoid
         super
       end
 
-      def setup(klass)
-        @klass = klass
-      end
-
       def check_validity!
         return if case_sensitive?
         return unless klass

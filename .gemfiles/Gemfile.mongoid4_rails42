@@ -3,8 +3,8 @@ gemspec path: '..'
 
 gem 'rake'
 gem 'mongoid', '4.0.0'
-gem "actionpack",  "~> 4.2.0.beta1"
-gem "activemodel", "~> 4.2.0.beta1"
+gem "actionpack",  "~> 4.2.0"
+gem "activemodel", "~> 4.2.0"
 
 group :test do
   gem 'coveralls', require: false
