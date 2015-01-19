@@ -1,5 +1,8 @@
 # Revision history
 
+## 1.3.3
+* \#19 Remove deprecated Validator#setup method
+
 ## 1.3.2
 * \#17 Updates due to changes in ActiveModel 4.2
 * Added gemfiles to specifically test Mongoid 4, Mongoid 4 with Rails 4.1, and Mongoid 4 with Rails 4.2
