@@ -1,6 +1,6 @@
 require "spec_helper"
 
-if Mongoid::EncryptedFields.mongoid_major_version == 4
+if Mongoid::EncryptedFields.mongoid_major_version >= 4
   describe Mongoid::Validatable::UniquenessValidator do
 
     before(:all) do
