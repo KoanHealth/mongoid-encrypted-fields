@@ -1,5 +1,8 @@
 # Revision history
 
+## 1.3.4
+* \#21 Adding support for changes in Mongoid 5
+
 ## 1.3.3
 * \#19 Remove deprecated Validator#setup method
 
