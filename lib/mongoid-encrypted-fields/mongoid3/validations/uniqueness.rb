@@ -13,7 +13,7 @@ module Mongoid
         return if case_sensitive?
         attributes.each do |attribute|
           field_type = @klass.fields[@klass.database_field_name(attribute)].options[:type]
-          raise ArgumentError, "Encrypted field :#{attribute} cannot support case insensitive uniqueness" if field_type.method_defined?(:encrypted)
+          raise ArgumentError, "Encrypted field :#{attribute} cannot support case insensitive uniqueness" if field_type && field_type.method_defined?(:encrypted)
         end
       end
 
