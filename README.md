@@ -5,6 +5,14 @@ mongoid-encrypted-fields
 [![Coverage Status](https://coveralls.io/repos/KoanHealth/mongoid-encrypted-fields/badge.png?branch=master)](https://coveralls.io/r/KoanHealth/mongoid-encrypted-fields)
 [![Dependency Status](https://gemnasium.com/KoanHealth/mongoid-encrypted-fields.png)](https://gemnasium.com/KoanHealth/mongoid-encrypted-fields)
 
+New Maintainer Needed
+=====================
+We are actively seeking a new maintainer for this gem!  As we no longer use MongoDB as part of our platform, we aren't using the gem for ourselves.  As MongoDB and Mongoid continually change, we want to make sure our gem keeps up.
+
+If you're interested, please contact us!  Thanks
+
+Description
+===========
 A library for storing encrypted data in Mongo using Mongoid.  We looked at a few alternatives, but wanted something that stored the values securely and unobtrusively.
 
 Mongoid 3 supports [custom types](http://mongoid.org/en/mongoid/docs/documents.html) that need to only provide a simple interface - allowing us to extend core Ruby types to secure any type while providing a clean interface for developers.
