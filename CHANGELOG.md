@@ -2,6 +2,7 @@
 
 ## 1.3.4
 * \#21 Adding support for changes in Mongoid 5
+* \#22 Check for nil field_type
 
 ## 1.3.3
 * \#19 Remove deprecated Validator#setup method
