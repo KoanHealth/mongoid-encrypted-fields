@@ -1,0 +1,6 @@
+test:
+  clients:
+    default:
+      database: mongoid_encrypted_fields_test
+      hosts:
+        - localhost:27017
