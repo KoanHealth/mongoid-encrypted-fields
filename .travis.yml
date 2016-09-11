@@ -14,8 +14,13 @@ gemfile:
   - .gemfiles/Gemfile.mongoid4_rails42
   - .gemfiles/Gemfile.mongoid5_rails4
   - .gemfiles/Gemfile.mongoid_head
+matrix:
+  include:
+    - rvm: 2.3.1
+      gemfile: .gemfiles/Gemfile.mongoid6_rails5
 notifications:
   recipients:
     - jerry.clinesmith@koanhealth.com
 services:
   - mongodb
+
