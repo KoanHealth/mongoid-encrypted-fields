@@ -3,11 +3,12 @@ gemspec path: '..'
 
 gem 'rake'
 gem 'mongoid', '4.0.0'
-gem "actionpack",  "~> 4.2.0"
-gem "activemodel", "~> 4.2.0"
+gem 'actionpack',  '~> 4.2.0'
+gem 'activemodel', '~> 4.2.0'
+gem 'json', '< 2' if RUBY_VERSION < '2.0'
 
 group :test do
-  gem 'coveralls', require: false
+  gem 'coveralls', ('<= 0.8.14' if RUBY_VERSION < '2.0'), require: false
   gem 'encrypted_strings', '~> 0.3'
   gem 'gibberish', '~> 1.2.2'
   gem 'rspec', '~> 2.13'
