@@ -4,9 +4,8 @@ rvm:
   - 1.9.3
   - 2.0.0
   - 2.1.0
-matrix:
-  allow_failures:
-    - gemfile: .gemfiles/Gemfile.mongoid_head
+before_install:
+  - gem install bundler
 gemfile:
   - .gemfiles/Gemfile.mongoid3
   - .gemfiles/Gemfile.mongoid4
@@ -15,6 +14,8 @@ gemfile:
   - .gemfiles/Gemfile.mongoid5_rails4
   - .gemfiles/Gemfile.mongoid_head
 matrix:
+  allow_failures:
+    - gemfile: .gemfiles/Gemfile.mongoid_head
   include:
     - rvm: 2.3.1
       gemfile: .gemfiles/Gemfile.mongoid6_rails5
