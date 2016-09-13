@@ -26,7 +26,7 @@ end
 case ::Mongoid::EncryptedFields.mongoid_major_version
   when 3
     require 'mongoid-encrypted-fields/mongoid3/validations/uniqueness'
-  when 4, 5
+  when 4, 5, 6
     require 'mongoid-encrypted-fields/mongoid4/validatable/uniqueness'
   else
     raise "Unsupported version of Mongoid: #{::Mongoid::VERSION::MAJOR}"
