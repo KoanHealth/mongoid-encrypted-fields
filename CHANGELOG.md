@@ -1,5 +1,8 @@
 # Revision history
 
+## 1.3.5
+* \#25 Mongoid 6 support
+
 ## 1.3.4
 * \#21 Adding support for changes in Mongoid 5
 * \#22 Check for nil field_type

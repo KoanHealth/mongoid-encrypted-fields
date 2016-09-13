@@ -21,7 +21,7 @@ Queries encrypt data before searching the database, so equality matches work aut
 
 ## Prerequisites
 * >= Ruby 1.9.3
-* >= [Mongoid](http://mongoid.org) 3.0
+* >= [Mongoid](http://mongoid.org) 3.0+
 * "Bring your own" encryption, see below
 
 ## Install
