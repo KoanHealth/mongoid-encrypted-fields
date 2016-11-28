@@ -5,6 +5,9 @@ module Mongoid
   module EncryptedField
     extend ActiveSupport::Concern
 
+    # Used to identify encrypted strings
+    MARKER = Base64.encode64('\x02`{~MeF~}`\x03').chomp
+
     def encrypted
       if frozen?
         @encrypted ||= self.class.encrypt(raw_value)
@@ -58,21 +61,18 @@ module Mongoid
         raise NotImplementedError.new("convert must be implemented")
       end
 
-      # Used to identify encrypted strings
-      MARKER = Base64.encode64('\x02`{~MeF~}`\x03').chomp
-
       def encrypt(plaintext)
         encrypted = EncryptedFields.cipher.encrypt(plaintext).chomp
-        MARKER + encrypted
+        Mongoid::EncryptedField::MARKER + encrypted
       end
 
       def decrypt(encrypted)
-        unmarked = encrypted.slice(MARKER.size..-1)
+        unmarked = encrypted.slice(Mongoid::EncryptedField::MARKER.size..-1)
         EncryptedFields.cipher.decrypt(unmarked)
       end
 
       def is_encrypted?(object)
-        object.is_a?(::String) && object.start_with?(MARKER)
+        object.is_a?(::String) && object.start_with?(Mongoid::EncryptedField::MARKER)
       end
 
     end

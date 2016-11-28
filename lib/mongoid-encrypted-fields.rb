@@ -6,13 +6,19 @@ require 'mongoid-encrypted-fields/fields/encrypted_string'
 require 'mongoid-encrypted-fields/fields/encrypted_date'
 require 'mongoid-encrypted-fields/fields/encrypted_date_time'
 require 'mongoid-encrypted-fields/fields/encrypted_time'
+require 'mongoid-encrypted-fields/fields/unsearchable_encrypted_field'
+require 'mongoid-encrypted-fields/fields/unsearchable_encrypted_hash'
+require 'mongoid-encrypted-fields/fields/unsearchable_encrypted_string'
+require 'mongoid-encrypted-fields/fields/unsearchable_encrypted_date'
+require 'mongoid-encrypted-fields/fields/unsearchable_encrypted_date_time'
+require 'mongoid-encrypted-fields/fields/unsearchable_encrypted_time'
 
 module Mongoid
   module EncryptedFields
 
     class << self
       # Set cipher used for all field encryption/decryption
-      attr_accessor :cipher
+      attr_accessor :cipher, :unsearchable_cipher
     end
   end
 end

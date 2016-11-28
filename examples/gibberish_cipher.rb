@@ -4,7 +4,7 @@ require 'gibberish/aes'
 # so Searching for encrypted field will work
 class GibberishCipher
 
-  def initialize(password, salt)
+  def initialize(password, salt = nil)
     if defined?(Gibberish::AES::CBC)
       @cipher = Gibberish::AES::CBC.new(password)
     else
@@ -14,7 +14,7 @@ class GibberishCipher
   end
 
   def encrypt(data)
-    @cipher.encrypt(data, salt: @salt)
+    @cipher.encrypt(data, salt: (@salt || SecureRandom.base64))
   end
 
   def decrypt(data)

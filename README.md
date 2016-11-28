@@ -32,13 +32,19 @@ Mongoid 3, Mongoid 4 and Rails 3.2 are supported in version 1.x of this gem.
     gem 'mongoid-encrypted-fields'
     ```
 
+## Searchable vs. Unsearchable
+
+* Default encrypted fields use a global salt so the same value produces the same encrypted output.  Queries work by first encrypting the search term, then searching for the encrypted value.
+* Unsearchable encrypted fields use a unique salt each time a value is encrypted.  Encrypting the same value multiple times will generate unique encrypted outputs each time.  Queries on unsearchable encrypted fields are not possible.
+
 ## Usage
-* Configure the cipher to be used for encrypting field values:
+* Configure the ciphers to be used for encrypting field values:
 
     GibberishCipher can be found in examples - uses the [Gibberish](https://github.com/mdp/gibberish) gem:
 
     ```ruby
-    Mongoid::EncryptedFields.cipher = Gibberish.new(ENV['MY_PASSWORD'], ENV['MY_SALT'])
+    Mongoid::EncryptedFields.cipher = GibberishCipher.new(ENV['MY_PASSWORD'], ENV['MY_SALT'])
+    Mongoid::EncryptedFields.unsearchable_cipher = GibberishCipher.new(ENV['MY_PASSWORD'])
     ```
 
 * Use encrypted types for fields in your models:
@@ -47,8 +53,8 @@ Mongoid 3, Mongoid 4 and Rails 3.2 are supported in version 1.x of this gem.
     class Person
         include Mongoid::Document
 
-        field :name, type: String
-        field :ssn, type: Mongoid::EncryptedString
+        field :ssn, type: Mongoid::EncryptedString              #can search for Person with ssn
+        field :name, type: Mongoid::UnsearchableEncryptedString #don't need to search based on name
     end
     ```
 
@@ -72,10 +78,10 @@ Mongoid 3, Mongoid 4 and Rails 3.2 are supported in version 1.x of this gem.
 
     ```ruby
     Person.where(ssn: '123456789').count() # ssn is encrypted before querying the database
+    Person.where(name: 'John Doe').count() # does not work!  uses a new salt each time the value is encrypted
     ```
 
 ## Known Limitations
-* Single cipher for all encrypted fields
 * Currently can encrypt these [Mongoid types](http://mongoid.org/en/mongoid/docs/documents.html#fields)
   * Date
   * DateTime
@@ -83,6 +89,7 @@ Mongoid 3, Mongoid 4 and Rails 3.2 are supported in version 1.x of this gem.
   * String
   * Time
 * The uniqueness validator for encrypted fields should always be set to case-sensitive.  Encrypted fields cannot support a case-insensitive match.
+* Queries for unsearchable encrypted fields do not work.
 
 ## Related Articles
 * [Storing Encrypted Data in MongoDB](http://jerryclinesmith.me/blog/2013/03/29/storing-encrypted-data-in-mongodb/)
