@@ -15,7 +15,7 @@ group :test do
   if RUBY_VERSION < '2.0'
     gem 'rspec', '< 3'
   else
-    gem 'rspec
+    gem 'rspec'
   end
   gem 'simplecov', require: false
 end
