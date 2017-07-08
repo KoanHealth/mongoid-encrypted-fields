@@ -13,7 +13,6 @@ gem 'activemodel', '~> 4.2.0'
 
 group :test do
   gem 'encrypted_strings', '~> 0.3'
-  gem 'gibberish', '~> 1.2.2'
   if RUBY_VERSION < '2.0'
     gem 'gibberish', '< 2'
     gem 'rspec', '< 3'
