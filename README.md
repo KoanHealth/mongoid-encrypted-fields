@@ -2,7 +2,6 @@ mongoid-encrypted-fields
 ========================
 [![Build Status](https://secure.travis-ci.org/KoanHealth/mongoid-encrypted-fields.png?branch=master&.png)](http://travis-ci.org/KoanHealth/mongoid-encrypted-fields)
 [![Code Climate](https://codeclimate.com/github/KoanHealth/mongoid-encrypted-fields.png)](https://codeclimate.com/github/KoanHealth/mongoid-encrypted-fields)
-[![Dependency Status](https://gemnasium.com/KoanHealth/mongoid-encrypted-fields.png)](https://gemnasium.com/KoanHealth/mongoid-encrypted-fields)
 
 New Maintainer Needed
 =====================
