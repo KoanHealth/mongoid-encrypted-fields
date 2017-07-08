@@ -13,10 +13,11 @@ gem 'activemodel', '< 6'
 
 group :test do
   gem 'encrypted_strings', '~> 0.3'
-  gem 'gibberish', '~> 1.2.2'
   if RUBY_VERSION < '2.0'
+    gem 'gibberish', '< 2'
     gem 'rspec', '< 3'
   else
+    gem 'gibberish'
     gem 'rspec'
   end
   gem 'simplecov', require: false

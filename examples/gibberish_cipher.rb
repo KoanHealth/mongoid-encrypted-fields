@@ -5,7 +5,11 @@ require 'gibberish/aes'
 class GibberishCipher
 
   def initialize(password, salt)
-    @cipher = Gibberish::AES.new(password)
+    if defined?(Gibberish::AES::CBC)
+      @cipher = Gibberish::AES::CBC.new(password)
+    else
+      @cipher = Gibberish::AES.new(password)
+    end
     @salt = salt
   end
 
