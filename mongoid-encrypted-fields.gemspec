@@ -27,6 +27,5 @@ Gem::Specification.new do |gem|
   gem.add_development_dependency 'rspec'
   gem.add_development_dependency 'gibberish', '~> 1.2.2'
   gem.add_development_dependency 'encrypted_strings', '~> 0.3'
-  gem.add_development_dependency 'coveralls', ('<= 0.8.14' if RUBY_VERSION < '2.0')
   gem.add_development_dependency 'simplecov'
 end
