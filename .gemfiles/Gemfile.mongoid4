@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 gemspec path: '..'
 
-gem 'rake'
+gem 'rake', '< 11' if RUBY_VERSION < '2.0'
 gem 'mongoid', '4.0.0'
 
 gem 'json', '< 2' if RUBY_VERSION < '2.0'
@@ -9,6 +9,6 @@ gem 'json', '< 2' if RUBY_VERSION < '2.0'
 group :test do
   gem 'encrypted_strings', '~> 0.3'
   gem 'gibberish', '~> 1.2.2'
-  gem 'rspec', '~> 2.13'
+  gem 'rspec', '< 3' if RUBY_VERSION < '2.0'
   gem 'simplecov', require: false
 end
