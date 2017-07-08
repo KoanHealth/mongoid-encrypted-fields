@@ -1,5 +1,9 @@
 # Revision history
 
+## 1.3.6
+* Changes to keep backwards support for Ruby < 2
+* \#28 Investigating gem load error
+
 ## 1.3.5
 * \#25 Mongoid 6 support
 
