@@ -21,6 +21,11 @@ module Mongoid
 
     class << self
 
+      def decrypt(encrypted)
+        s = super
+        s.force_encoding(Encoding::UTF_8) if s
+      end
+
       def convert(object)
         new(object)
       end
