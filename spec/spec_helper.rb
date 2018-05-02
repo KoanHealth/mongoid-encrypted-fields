@@ -9,6 +9,7 @@ end
 require 'mongoid'
 require 'rspec'
 
+require 'encrypted_strings'
 require 'mongoid-encrypted-fields'
 
 Dir["#{File.dirname(__FILE__)}/../examples/**/*.rb"].each { |f| require f }
@@ -24,11 +25,10 @@ else
 end
 
 Mongoid::EncryptedFields.logger.level = Logger::FATAL
+Mongoid.logger = Mongoid::EncryptedFields.logger
+Moped.logger = Mongoid::EncryptedFields.logger if defined?(Moped)
 
 RSpec.configure do |config|
-  Mongoid.logger = Mongoid::EncryptedFields.logger
-  Moped.logger = Mongoid::EncryptedFields.logger if defined? Moped
-
   config.treat_symbols_as_metadata_keys_with_true_values = true
   config.run_all_when_everything_filtered = true
   config.filter_run :focus
