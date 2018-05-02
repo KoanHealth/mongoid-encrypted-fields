@@ -4,18 +4,6 @@ sudo: false
 matrix:
   fast_finish: true
   include:
-    - rvm: 1.9.3
-      gemfile: spec/gemfiles/mongoid3_rails32.gemfile
-    - rvm: 2.1
-      gemfile: spec/gemfiles/mongoid3_rails32.gemfile
-    - rvm: 2.3
-      gemfile: spec/gemfiles/mongoid4_rails40.gemfile
-    - rvm: 2.4
-      gemfile: spec/gemfiles/mongoid4_rails40.gemfile
-    - rvm: 2.3
-      gemfile: spec/gemfiles/mongoid4_rails42.gemfile
-    - rvm: 2.4
-      gemfile: spec/gemfiles/mongoid4_rails42.gemfile
     - rvm: 2.3
       gemfile: spec/gemfiles/mongoid5_rails42.gemfile
     - rvm: 2.4
@@ -39,21 +27,6 @@ matrix:
       gemfile: spec/gemfiles/mongoid_head.gemfile
     - rvm: jruby-head
       gemfile: spec/gemfiles/mongoid_head.gemfile
-
-    # Some specs for Mongoid 3 and 4 are failing for some unknown reason.
-    # Support for these can be dropped soon so I'm not going to bother to fix them.
-    - rvm: 1.9.3
-      gemfile: spec/gemfiles/mongoid3_rails32.gemfile
-    - rvm: 2.1
-      gemfile: spec/gemfiles/mongoid3_rails32.gemfile
-    - rvm: 2.3
-      gemfile: spec/gemfiles/mongoid4_rails40.gemfile
-    - rvm: 2.4
-      gemfile: spec/gemfiles/mongoid4_rails40.gemfile
-    - rvm: 2.3
-      gemfile: spec/gemfiles/mongoid4_rails42.gemfile
-    - rvm: 2.4
-      gemfile: spec/gemfiles/mongoid4_rails42.gemfile
 
 services:
   - mongodb
