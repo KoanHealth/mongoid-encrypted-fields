@@ -1,26 +1,34 @@
 language: ruby
 bundler_args: --without development
-rvm:
-  - 1.9.3
-  - 2.0.0
-  - 2.1.0
-  - 2.2.0
-  - 2.3.0
 before_install:
   - gem install bundler
-gemfile:
-  - .gemfiles/Gemfile.mongoid3
-  - .gemfiles/Gemfile.mongoid4
-  - .gemfiles/Gemfile.mongoid4_rails41
-  - .gemfiles/Gemfile.mongoid4_rails42
-  - .gemfiles/Gemfile.mongoid5_rails4
-  - .gemfiles/Gemfile.mongoid_head
 matrix:
   allow_failures:
-    - gemfile: .gemfiles/Gemfile.mongoid_head
+    - rvm: 2.5.1
+      gemfile: spec/gemfiles/Gemfile.mongoid_head
   include:
-    - rvm: 2.3.1
-      gemfile: .gemfiles/Gemfile.mongoid6_rails5
+    - rvm: 1.9.3
+      gemfile: spec/gemfiles/Gemfile.mongoid3_rails32
+    - rvm: 2.1.10
+      gemfile: spec/gemfiles/Gemfile.mongoid3_rails32
+    - rvm: 2.3.7
+      gemfile: spec/gemfiles/Gemfile.mongoid4_rails40
+    - rvm: 2.4.4
+      gemfile: spec/gemfiles/Gemfile.mongoid4_rails40
+    - rvm: 2.3.7
+      gemfile: spec/gemfiles/Gemfile.mongoid4_rails42
+    - rvm: 2.4.4
+      gemfile: spec/gemfiles/Gemfile.mongoid4_rails42
+    - rvm: 2.3.7
+      gemfile: spec/gemfiles/Gemfile.mongoid5_rails42
+    - rvm: 2.4.4
+      gemfile: spec/gemfiles/Gemfile.mongoid5_rails42
+    - rvm: 2.4.4
+      gemfile: spec/gemfiles/Gemfile.mongoid6_rails50
+    - rvm: 2.4.4
+      gemfile: spec/gemfiles/Gemfile.mongoid7_rails52
+    - rvm: 2.5.1
+      gemfile: spec/gemfiles/Gemfile.mongoid7_rails52
 notifications:
   recipients:
     - jerry.clinesmith@koanhealth.com
