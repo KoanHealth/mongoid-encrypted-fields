@@ -13,21 +13,6 @@ module Mongoid
     class << self
       # Set cipher used for all field encryption/decryption
       attr_accessor :cipher
-
-      def mongoid_major_version
-        @mongoid_major_version ||= ::Mongoid::VERSION[/([^\.]+)/].to_i
-      end
-
     end
-
   end
-end
-
-case ::Mongoid::EncryptedFields.mongoid_major_version
-  when 3
-    require 'mongoid-encrypted-fields/mongoid3/validations/uniqueness'
-  when 0..2
-    raise "Unsupported version of Mongoid: #{::Mongoid::VERSION}"
-  else
-    require 'mongoid-encrypted-fields/mongoid4/validatable/uniqueness'
 end

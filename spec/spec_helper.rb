@@ -17,13 +17,7 @@ Dir["#{File.dirname(__FILE__)}/support/**/*.rb"].each { |f| require f }
 
 ENV['MONGOID_ENV'] ||= 'test'
 
-# Config format changed in mongoid 5
-if Mongoid::EncryptedFields.mongoid_major_version < 5
-  Mongoid.load!("#{File.dirname(__FILE__)}/config/mongoid.yml")
-else
-  Mongoid.load!("#{File.dirname(__FILE__)}/config/mongoid5.yml")
-end
-
+Mongoid.load!("#{File.dirname(__FILE__)}/config/mongoid.yml")
 Mongoid::EncryptedFields.logger.level = Logger::FATAL
 Mongoid.logger = Mongoid::EncryptedFields.logger
 Moped.logger = Mongoid::EncryptedFields.logger if defined?(Moped)

@@ -1,5 +1,5 @@
 test:
-  sessions:
+  clients:
     default:
       database: mongoid_encrypted_fields_test
       hosts:

@@ -1,5 +1,8 @@
 # Revision history
 
+## 2.0.0
+* Drop support for Mongoid 3 and 4.
+
 ## 1.3.7
 * Support Mongoid 7 and future versions.
 
