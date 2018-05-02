@@ -41,7 +41,7 @@ describe 'Single model' do
   describe "after save" do
 
     before(:each) do
-      Mongoid.purge!
+      Person.delete_all
       person.save!
       @persisted = Person.find(person.id)
     end
@@ -78,7 +78,7 @@ describe 'Single model' do
   describe "find model by encrypted field" do
 
     before(:each) do
-      Mongoid.purge!
+      Person.delete_all
       person.save!
     end
 

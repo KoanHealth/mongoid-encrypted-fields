@@ -74,20 +74,6 @@ Mongoid 3, Mongoid 4 and Rails 3.2 are supported in version 1.x of this gem.
     Person.where(ssn: '123456789').count() # ssn is encrypted before querying the database
     ```
 
-* The Mongoid uniqueness validator is patched to detect encrypted fields:
-
-    ```ruby
-    class Person
-        ...
-        field :ssn, type: Mongoid::EncryptedString
-        validates_uniqueness_of :ssn, case_sensitive: true # Works as expected
-        validates_uniqueness_of :ssn, case_sensitive: false # Raises exception - encrypted field cannot support a case insensitive match
-    end
-
-    Person.create!(name: 'Bill', ssn: '123456789')
-    Person.create!(name: 'Ted', ssn: '123456789') #=> fails with uniqueness error
-    ```
-
 ## Known Limitations
 * Single cipher for all encrypted fields
 * Currently can encrypt these [Mongoid types](http://mongoid.org/en/mongoid/docs/documents.html#fields)
@@ -96,7 +82,7 @@ Mongoid 3, Mongoid 4 and Rails 3.2 are supported in version 1.x of this gem.
   * Hash
   * String
   * Time
-* The uniqueness validator for encrypted fields is always case-sensitive.  Using it with case-sensitive false raises an exception.
+* The uniqueness validator for encrypted fields should always be set to case-sensitive.  Encrypted fields cannot support a case-insensitive match.
 
 ## Related Articles
 * [Storing Encrypted Data in MongoDB](http://jerryclinesmith.me/blog/2013/03/29/storing-encrypted-data-in-mongodb/)
