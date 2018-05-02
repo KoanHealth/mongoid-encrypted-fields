@@ -9,6 +9,7 @@ end
 require 'mongoid'
 require 'rspec'
 
+require 'encrypted_strings'
 require 'mongoid-encrypted-fields'
 
 Dir["#{File.dirname(__FILE__)}/../examples/**/*.rb"].each { |f| require f }
