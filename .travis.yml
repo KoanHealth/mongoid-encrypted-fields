@@ -1,47 +1,45 @@
 language: ruby
-bundler_args: --without development
-before_install:
-  - gem install bundler
+
 matrix:
+  fast_finish: true
   allow_failures:
     - rvm: ruby-head
-      gemfile: spec/gemfiles/Gemfile.mongoid_head
+      gemfile: spec/gemfiles/mongoid_head.gemfile
     - rvm: rbx-head
-      gemfile: spec/gemfiles/Gemfile.mongoid_head
+      gemfile: spec/gemfiles/mongoid_head.gemfile
     - rvm: jruby-head
-      gemfile: spec/gemfiles/Gemfile.mongoid_head
+      gemfile: spec/gemfiles/mongoid_head.gemfile
   include:
     - rvm: 1.9.3
-      gemfile: spec/gemfiles/Gemfile.mongoid3_rails32
+      gemfile: spec/gemfiles/mongoid3_rails32.gemfile
     - rvm: 2.1
-      gemfile: spec/gemfiles/Gemfile.mongoid3_rails32
+      gemfile: spec/gemfiles/mongoid3_rails32.gemfile
     - rvm: 2.3
-      gemfile: spec/gemfiles/Gemfile.mongoid4_rails40
+      gemfile: spec/gemfiles/mongoid4_rails40.gemfile
     - rvm: 2.4
-      gemfile: spec/gemfiles/Gemfile.mongoid4_rails40
+      gemfile: spec/gemfiles/mongoid4_rails40.gemfile
     - rvm: 2.3
-      gemfile: spec/gemfiles/Gemfile.mongoid4_rails42
+      gemfile: spec/gemfiles/mongoid4_rails42.gemfile
     - rvm: 2.4
-      gemfile: spec/gemfiles/Gemfile.mongoid4_rails42
+      gemfile: spec/gemfiles/mongoid4_rails42.gemfile
     - rvm: 2.3
-      gemfile: spec/gemfiles/Gemfile.mongoid5_rails42
+      gemfile: spec/gemfiles/mongoid5_rails42.gemfile
     - rvm: 2.4
-      gemfile: spec/gemfiles/Gemfile.mongoid5_rails42
+      gemfile: spec/gemfiles/mongoid5_rails42.gemfile
     - rvm: 2.4
-      gemfile: spec/gemfiles/Gemfile.mongoid6_rails50
+      gemfile: spec/gemfiles/mongoid6_rails50.gemfile
     - rvm: 2.4
-      gemfile: spec/gemfiles/Gemfile.mongoid7_rails52
+      gemfile: spec/gemfiles/mongoid7_rails52.gemfile
     - rvm: 2.5
-      gemfile: spec/gemfiles/Gemfile.mongoid7_rails52
+      gemfile: spec/gemfiles/mongoid7_rails52.gemfile
     - rvm: ruby-head
-      gemfile: spec/gemfiles/Gemfile.mongoid_head
+      gemfile: spec/gemfiles/mongoid_head.gemfile
     - rvm: rbx-head
-      gemfile: spec/gemfiles/Gemfile.mongoid_head
+      gemfile: spec/gemfiles/mongoid_head.gemfile
     - rvm: jruby-head
-      gemfile: spec/gemfiles/Gemfile.mongoid_head
-notifications:
-  recipients:
-    - jerry.clinesmith@koanhealth.com
+      gemfile: spec/gemfiles/mongoid_head.gemfile
+
+sudo: false
+cache: bundler
 services:
   - mongodb
-
