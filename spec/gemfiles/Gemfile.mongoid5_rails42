@@ -4,3 +4,8 @@ gemspec path: '../..'
 gem 'mongoid', '~> 5.0'
 gem 'actionpack',  '~> 4.2.0'
 gem 'activemodel', '~> 4.2.0'
+
+gem 'simplecov', require: false
+gem 'rake'
+gem 'gibberish'
+gem 'rspec'
