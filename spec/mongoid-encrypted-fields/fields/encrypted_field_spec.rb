@@ -26,5 +26,12 @@ module Mongoid
       Mongoid::EncryptedString.is_encrypted?(unencrypted).should be false
     end
 
+    it "should mongoize an array object" do
+      plaintext = "this is a test!"
+      encrypted = Mongoid::EncryptedString.mongoize([plaintext]).first
+
+      Mongoid::EncryptedString.is_encrypted?(encrypted).should be true
+    end
+
   end
 end

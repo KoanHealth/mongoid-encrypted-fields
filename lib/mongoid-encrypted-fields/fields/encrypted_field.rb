@@ -42,6 +42,8 @@ module Mongoid
       def mongoize(object)
         #EncryptedFields.logger.debug "#{name}##{__method__.to_s}: #{object.inspect}"
         case
+          when object.is_a?(Array)
+            object.map{ |el| mongoize(el) }
           when object.is_a?(self.class)
             object.mongoize
           when object.blank? || is_encrypted?(object)
