@@ -35,10 +35,10 @@ Mongoid 3, Mongoid 4 and Rails 3.2 are supported in version 1.x of this gem.
 ## Usage
 * Configure the cipher to be used for encrypting field values:
 
-    GibberishCipher can be found in examples - uses the [Gibberish](https://github.com/mdp/gibberish) gem:
+    GibberishCipher can be found in the [examples](https://github.com/KoanHealth/mongoid-encrypted-fields/tree/master/examples) - uses the [Gibberish](https://github.com/mdp/gibberish) gem:
 
     ```ruby
-    Mongoid::EncryptedFields.cipher = Gibberish.new(ENV['MY_PASSWORD'], ENV['MY_SALT'])
+    Mongoid::EncryptedFields.cipher = GibberishCipher.new(ENV['MY_PASSWORD'], ENV['MY_SALT'])
     ```
 
 * Use encrypted types for fields in your models:
